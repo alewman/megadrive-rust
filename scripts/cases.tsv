@@ -1,0 +1,46 @@
+# The lockstep gate's cases: name, frames, cartridge, arguments (tab-separated).
+# $ROMS, $TEST_ROMS and $EXTRA_ROMS are expanded by scripts/lockstep.py; the ROMs are
+# local and never committed. Rung 2 is the reference's own test ROMs, rung 3 the
+# cold boots it is judged on and the boards it models, rung 4 machines, inputs and the
+# reset button.
+#
+# rung 2: test ROMs
+vdpfifo-genesis	600	$TEST_ROMS/nemesis/VDPFIFOTesting.zip	--machine genesis
+vdpfifo-genesis3	600	$TEST_ROMS/nemesis/VDPFIFOTesting.zip	--machine genesis3
+vdpfifo-md2j	600	$TEST_ROMS/nemesis/VDPFIFOTesting.zip	--machine megadrive2-japan
+vdpfifo-nuked	600	$TEST_ROMS/nemesis/VDPFIFOTesting.zip	--machine nuked-md
+sprite-masking	600	$TEST_ROMS/nemesis/SpriteMaskingTestRom.bin	--press right@200:230 --press a@300:310
+z80-bus	900	$TEST_ROMS/mask-of-destiny/gen_test_z80_bus.md
+r57shell-vdp	1500	$TEST_ROMS/r57shell/vdp_tests.bin	--press down@200:205 --press start@300:305 --press b@600:605 --press down@700:705 --press down@710:715 --press start@800:805
+joy-speed	900	$TEST_ROMS/r57shell/joy_speed_v1.02.bin	--pad 6button --press start@100:300 --press x,y,z,mode@400:500
+soft-checker	900	$TEST_ROMS/sega/MD Soft Checker (USA) (Proto) (Unl).zip	--press start@300:305 --press a@500:505
+fm-csm	600	$TEST_ROMS/nemesis/ym2612csmmode.bin
+fm-ssg-eg	600	$TEST_ROMS/nemesis/ym2612ssg-eg.bin
+fm-attack	600	$TEST_ROMS/nemesis/ym2612attackandrelease.bin
+fm-detune	600	$TEST_ROMS/nemesis/ym2612detune.bin
+fm-multiplex	600	$TEST_ROMS/nemesis/ym2612multiplexing.bin
+fm-write-order	600	$TEST_ROMS/nemesis/ym2612FrequencyWriteOrder.bin
+240p-suite	1200	$ROMS/240p Test Suite (World) (v1.30) (Program) (Aftermarket) (Unl).zip	--press start@300:305 --press down@400:405 --press a@450:455 --press b@700:705
+# rung 3: cold boots and boards
+od2	9000	$TEST_ROMS/titan/titan-overdrive2.zip
+od2-nuked	9000	$TEST_ROMS/titan/titan-overdrive2.zip	--machine nuked-md
+sonic	3600	$ROMS/Sonic The Hedgehog (USA, Europe).zip	--press start@700:710 --press right@900:1500 --press right,c@1500:1520 --press right@1520:2500
+sonic-nuked	3600	$ROMS/Sonic The Hedgehog (USA, Europe).zip	--machine nuked-md --press start@700:710 --press right@900:2500
+sor2	3600	$ROMS/Streets of Rage 2 (USA).zip	--press start@900:910 --press start@1100:1110 --press start@1300:1310 --press right@1500:2500 --press b@2000:2010
+sor2-nuked	3600	$ROMS/Streets of Rage 2 (USA).zip	--machine nuked-md
+gunstar	3600	$ROMS/Gunstar Heroes (USA).zip	--press start@700:710 --press start@900:910 --press c@1100:1110 --press right@1300:2500
+gunstar-nuked	3600	$ROMS/Gunstar Heroes (USA).zip	--machine nuked-md
+sonic3-fram	1800	$ROMS/Sonic The Hedgehog 3 (USA).zip
+nbajam-eeprom	1800	$ROMS/NBA Jam (USA, Europe).zip
+blara96-eeprom	1800	$ROMS/Brian Lara Cricket 96 (Europe).zip	--machine megadrive
+pstar4-sram	1800	$ROMS/Phantasy Star IV (USA).zip	--press start@600:610
+ssf2-mapper	1800	$ROMS/Super Street Fighter II (USA).zip
+castlevania	1800	$ROMS/Castlevania - Bloodlines (USA).zip
+rickroll-mapper	900	$EXTRA_ROMS/Rickroll (World) (Aftermarket) (Unl).bin
+# rung 4: machines, the boot ROM, the reset button
+tmss-boot	600	$ROMS/Sonic The Hedgehog (USA, Europe).zip	--machine genesis-tmss --tmss-rom $ROMS/[BIOS] Sega Mega Drive - Genesis - Boot ROM (World).zip
+sonic-pal	1200	$ROMS/Sonic The Hedgehog (USA, Europe).zip	--machine megadrive
+sonic-md2j	1200	$ROMS/Sonic The Hedgehog (USA, Europe).zip	--machine megadrive2-japan
+sonic-reset	1200	$ROMS/Sonic The Hedgehog (USA, Europe).zip	--press start@700:710 --reset-at 400 --reset-at 900
+sor2-reset	1200	$ROMS/Streets of Rage 2 (USA).zip	--machine megadrive-tmss --tmss-rom $ROMS/[BIOS] Sega Mega Drive - Genesis - Boot ROM (World).zip --reset-at 650
+gunstar-nofm	1200	$ROMS/Gunstar Heroes (USA).zip	--no-fm --pad 6button --pad2 none

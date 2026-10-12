@@ -22,7 +22,11 @@
 //! the PSG's as f64 pairs, CRAM and VSRAM as u16, the RGB picture as u32).
 
 use std::fmt::Write as _;
+use std::io;
 
+use crate::cartridge::{load_image, Cartridge};
+use crate::io::{Device, BUTTONS};
+use crate::machine::machine;
 use crate::system::System;
 
 pub const TRACE_HEADER: &str = "# megadrive-trace 1";
@@ -81,6 +85,7 @@ pub fn step_line(system: &System, index: u64, elapsed: i64) -> String {
 pub fn frame_lines(system: &mut System, index: u64) -> String {
     let mut out = String::new();
     let cpu = system.m68k.capture_state();
+    let system_audio = &mut system.audio;
     let md = &mut system.m68k.bus;
     let z80 = md.z80.capture_state();
     let _ = writeln!(
@@ -286,13 +291,22 @@ pub fn frame_lines(system: &mut System, index: u64) -> String {
         .iter()
         .flat_map(|(l, r)| l.to_le_bytes().into_iter().chain(r.to_le_bytes()))
         .collect();
+    // The analogue path (`audio`), fed what the chips finished, as `take_audio` does.
+    let mono: Vec<f64> = psg.iter().map(|&(left, _)| left).collect();
+    let mixed = system_audio.mix(&fm, &mono);
+    let mixed_bytes: Vec<u8> = mixed
+        .iter()
+        .flat_map(|(l, r)| l.to_le_bytes().into_iter().chain(r.to_le_bytes()))
+        .collect();
     let _ = writeln!(
         out,
-        "S fm={}:{:08X} psg={}:{:08X} fmclk={},{} psgclk={},{}",
+        "S fm={}:{:08X} psg={}:{:08X} mix={}:{:08X} fmclk={},{} psgclk={},{}",
         fm.len(),
         crc32(&fm_bytes),
         psg.len(),
         crc32(&psg_bytes),
+        mixed.len(),
+        crc32(&mixed_bytes),
         dev.fm.mclk,
         dev.fm.cycles_run,
         dev.psg_mclk,
@@ -329,4 +343,158 @@ pub fn frame_lines(system: &mut System, index: u64) -> String {
 
 fn md_partial(partial: Option<(i64, i64)>) -> String {
     partial.map_or_else(|| "-".to_string(), |(a, b)| format!("{a},{b}"))
+}
+
+/// Buttons held on port 1 from frame `from` up to (not including) `to`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Press {
+    pub buttons: u16,
+    pub from: u64,
+    pub to: u64,
+}
+
+impl Press {
+    /// `BUTTONS@FROM:TO`, buttons by name, comma-separated.
+    pub fn parse(spec: &str) -> Result<Press, String> {
+        let (names, range) = spec.split_once('@').ok_or("--press BUTTONS@FROM:TO")?;
+        let (from, to) = range.split_once(':').ok_or("--press BUTTONS@FROM:TO")?;
+        let mut buttons = 0;
+        for name in names.split(',').map(str::trim).filter(|n| !n.is_empty()) {
+            let (_, bit) = BUTTONS
+                .iter()
+                .find(|(button, _)| *button == name.to_lowercase())
+                .ok_or_else(|| format!("unknown button {name:?}"))?;
+            buttons |= bit;
+        }
+        Ok(Press {
+            buttons,
+            from: from.parse().map_err(|_| "bad frame")?,
+            to: to.parse().map_err(|_| "bad frame")?,
+        })
+    }
+}
+
+/// One run, as `md-trace` and `scripts/md_trace.py` take it.
+#[derive(Clone, Debug)]
+pub struct Run {
+    pub cartridge: std::path::PathBuf,
+    pub machine: String,
+    pub frames: u64,
+    pub presses: Vec<Press>,
+    pub resets: Vec<u64>,
+    pub no_fm: bool,
+    pub tmss_rom: Option<std::path::PathBuf>,
+    pub pads: [String; 2],
+    pub steps: Option<(u64, u64)>,
+}
+
+impl Run {
+    pub fn new(cartridge: impl Into<std::path::PathBuf>) -> Self {
+        Run {
+            cartridge: cartridge.into(),
+            machine: String::from("genesis"),
+            frames: 60,
+            presses: Vec::new(),
+            resets: Vec::new(),
+            no_fm: false,
+            tmss_rom: None,
+            pads: [String::from("3button"), String::from("3button")],
+            steps: None,
+        }
+    }
+
+    /// Parse `md-trace`'s options (everything but the cartridge and `--out`).
+    pub fn option(
+        &mut self,
+        name: &str,
+        value: &mut dyn FnMut() -> Result<String, String>,
+    ) -> Result<(), String> {
+        match name {
+            "--machine" => self.machine = value()?,
+            "--frames" => self.frames = value()?.parse().map_err(|_| "bad --frames")?,
+            "--press" => self.presses.push(Press::parse(&value()?)?),
+            "--reset-at" => self
+                .resets
+                .push(value()?.parse().map_err(|_| "bad --reset-at")?),
+            "--no-fm" => self.no_fm = true,
+            "--tmss-rom" => self.tmss_rom = Some(value()?.into()),
+            "--pad" => self.pads[0] = value()?,
+            "--pad2" => self.pads[1] = value()?,
+            "--steps" => {
+                let spec = value()?;
+                let (a, b) = spec.split_once(':').ok_or("--steps A:B")?;
+                self.steps = Some((
+                    a.parse().map_err(|_| "bad --steps")?,
+                    b.parse().map_err(|_| "bad --steps")?,
+                ));
+            }
+            _ => return Err(format!("unknown argument {name}")),
+        }
+        Ok(())
+    }
+
+    /// Run it and write the trace.
+    pub fn trace(&self, out: &mut impl io::Write) -> Result<(), String> {
+        let io_err = |e: io::Error| e.to_string();
+        let machine = machine(&self.machine).ok_or(format!("unknown machine {}", self.machine))?;
+        let image = load_image(&self.cartridge)?;
+        let digest = sha1_smol::Sha1::from(&image).digest().to_string();
+        let cartridge = Cartridge::from_image(image);
+        let slot = cartridge.slot.clone();
+        let pads = [
+            Device::by_name(&self.pads[0])?,
+            Device::by_name(&self.pads[1])?,
+        ];
+        let boot = match &self.tmss_rom {
+            Some(path) => Some(load_image(path)?),
+            None => None,
+        };
+        let mut system = System::new(machine, Some(cartridge), Some(pads), boot);
+        if self.no_fm {
+            system.board().dev.fm.enabled = false;
+        }
+        writeln!(
+            out,
+            "{TRACE_HEADER}\n# {digest} slot={slot} machine={}",
+            self.machine
+        )
+        .map_err(io_err)?;
+        let mut step_index = 0u64;
+        for frame in 0..self.frames {
+            let held = self
+                .presses
+                .iter()
+                .filter(|p| p.from <= frame && frame < p.to)
+                .fold(0, |held, p| held | p.buttons);
+            if let Some(device) = &mut system.board().dev.io.ports[0].device {
+                device.set_pressed(held);
+            }
+            if self.resets.contains(&frame) {
+                system.press_reset(None);
+            }
+            let start = system.board().vdp.s.frame;
+            while system.board().vdp.s.frame == start {
+                match system.step() {
+                    Ok(elapsed) => {
+                        if let Some((a, b)) = self.steps {
+                            if (a..b).contains(&step_index) {
+                                writeln!(out, "{}", step_line(&system, step_index, elapsed))
+                                    .map_err(io_err)?;
+                            }
+                        }
+                        step_index += 1;
+                    }
+                    Err(lockup) => {
+                        writeln!(out, "L {frame} {lockup}").map_err(io_err)?;
+                        return out.flush().map_err(io_err);
+                    }
+                }
+            }
+            let mclk = system.mclk();
+            system.board().dev.sound_sync(mclk);
+            out.write_all(frame_lines(&mut system, frame).as_bytes())
+                .map_err(io_err)?;
+        }
+        out.flush().map_err(io_err)
+    }
 }

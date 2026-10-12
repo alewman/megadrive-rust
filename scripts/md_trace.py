@@ -125,8 +125,12 @@ def frame_lines(system: System, index: int) -> str:
     psg = board.psg.take_samples()
     fm_bytes = packed("i", [x for pair in fm for x in pair])
     psg_bytes = packed("d", [x for pair in psg for x in pair])
+    # The analogue path (audio.py), fed what the chips finished, as take_audio does.
+    mixed = system.audio.mix(fm, [left for left, _right in psg])
+    mixed_bytes = packed("i", [x for pair in mixed for x in pair])
     out.append(
         f"S fm={len(fm)}:{crc(fm_bytes)} psg={len(psg)}:{crc(psg_bytes)} "
+        f"mix={len(mixed)}:{crc(mixed_bytes)} "
         f"fmclk={board.fm.mclk},{board.fm.cycles_run} psgclk={board.psg_mclk},{board.psg.clock}"
     )
     hold = "-" if board.z80_hold is None else f"{board.z80_hold[0]},{board.z80_hold[1]}"
