@@ -1,0 +1,23 @@
+[package]
+name = "megadrive-rust"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "A Rust Mega Drive / Genesis board transcribed from, and held in lockstep with, megadrive-python"
+license = "MIT"
+repository = "https://github.com/alewman/megadrive-rust"
+publish = false
+
+[lib]
+name = "megadrive_rust"
+
+[dependencies]
+m68000-rust = { path = "../m68000-rust" }
+z80-rust = { path = "../z80-rust" }
+ym2612-rust = { path = "../ym2612-rust" }
+sn76489-rust = { path = "../sn76489-rust" }
+flate2 = "1"
+sha1_smol = "1"
+
+[profile.release]
+debug = 1
