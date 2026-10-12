@@ -43,6 +43,7 @@ checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
 [[package]]
 name = "m68000-rust"
 version = "0.1.0"
+source = "git+https://github.com/alewman/m68000-rust?rev=e1b800038629b066fef91d48a3b8442a18150029#e1b800038629b066fef91d48a3b8442a18150029"
 dependencies = [
  "flate2",
  "serde",
@@ -153,6 +154,7 @@ checksum = "3a219298ac11a56ea9a6d2120044824d6f01aeb034955e7af7bc16858527deea"
 [[package]]
 name = "sn76489-rust"
 version = "0.1.0"
+source = "git+https://github.com/alewman/sn76489-rust?rev=c5fc09e43f8e9377a4e51c30e37c27ecb2e81476#c5fc09e43f8e9377a4e51c30e37c27ecb2e81476"
 dependencies = [
  "serde_json",
 ]
@@ -177,6 +179,7 @@ checksum = "a2c754d6c33795a1c324727428e5a7dedb5b06195f9890bdbcba760d3e246563"
 [[package]]
 name = "ym2612-rust"
 version = "0.1.0"
+source = "git+https://github.com/alewman/ym2612-rust?rev=3061637d2c0aead30a2fa8f4771ee8c992df4086#3061637d2c0aead30a2fa8f4771ee8c992df4086"
 dependencies = [
  "serde",
  "serde_json",
@@ -185,6 +188,7 @@ dependencies = [
 [[package]]
 name = "z80-rust"
 version = "0.1.0"
+source = "git+https://github.com/alewman/z80-rust?rev=3b15c1d1549aa6d6db951cc70d721ccd5d03965a#3b15c1d1549aa6d6db951cc70d721ccd5d03965a"
 dependencies = [
  "serde",
  "serde_json",

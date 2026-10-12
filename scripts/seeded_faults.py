@@ -99,10 +99,7 @@ def build(fault) -> Path:
         shutil.rmtree(work)  # our own scratch copy under external/
     shutil.copytree(REPO / "src", work / "src")
     shutil.copytree(REPO / "tests", work / "tests")
-    toml = (REPO / "Cargo.toml").read_text()
-    for core in ("m68000-rust", "z80-rust", "ym2612-rust", "sn76489-rust"):
-        toml = toml.replace(f'path = "../{core}"', f'path = "{(REPO.parent / core).resolve()}"')
-    (work / "Cargo.toml").write_text(toml)
+    shutil.copy(REPO / "Cargo.toml", work / "Cargo.toml")
     shutil.copy(REPO / "Cargo.lock", work / "Cargo.lock")
     source = (work / path).read_text()
     if source.count(old) != 1:
