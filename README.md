@@ -47,8 +47,39 @@ The machines are the reference's: `genesis`, `genesis-tmss`, `genesis2`, `genesi
 `megadrive`, `megadrive-tmss`, `megadrive2`, `megadrive-japan`, `megadrive2-japan`,
 and `nuked-md` (the die's DMA figures). The board comes from MAME's software list
 when `/usr/share/games/mame/hash/megadriv.xml` is installed, else from the header, as
-in the reference. There is no window yet: the reference's pygame frontend is the one
-module not transcribed.
+in the reference.
+
+## Playing in a window
+
+```text
+cargo build --release --features frontend      # needs SDL2 (libsdl2-dev)
+target/release/md-play CART [--machine NAME] [--scale 3] [--no-audio] [--no-fm]
+       [--skip N] [--pad 6button] [--pad2 none] [--save game.srm] [--tmss-rom BOOT.zip]
+       [--fullscreen]
+```
+
+| Key | Does | Key | Does |
+| --- | --- | --- | --- |
+| Arrows | D-pad | Z X C, or J K L | A B C |
+| Enter | Start | A S D | X Y Z |
+| Q | Mode | Backspace | the reset button |
+| Tab (held) | fast forward | F3 | pause |
+| F5 | power cycle | F11 | fullscreen |
+| F12 | screenshot to `screenshots/` | Esc | quit |
+
+A game controller works too, on port 1 with the keyboard and the second on port 2:
+A, B, C are its X, A, B; the 6-button pad's X, Y, Z are left shoulder, Y and right
+shoulder; Start is Start and Mode is Back. Without `--machine` the machine comes from
+the header's country codes: the USA's Genesis first, then a PAL Mega Drive, then a
+Japanese one.
+
+`md-play` is the reference's `frontend.py` (`src/frontend.rs` and `src/play.rs`) on
+SDL2 itself instead of pygame-ce. The sound queue sets the pace, so the console runs at
+its own 59.92 Hz (49.70 Hz PAL). Unlike the reference on PyPy, this board has the speed
+for it with the YM2612 on. The title bar shows the frame, the emulated time and the
+speed. The window needs the `frontend` feature, so the gate and CI build without SDL.
+`cargo test --features frontend` also runs the window headless, under SDL's dummy
+drivers.
 
 ## Speed
 

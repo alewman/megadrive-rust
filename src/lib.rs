@@ -4,7 +4,8 @@
 //! read side by side: `machine`, `arbiter`, `io`, `eeprom`, `cartridge`, `render`,
 //! `vdp`, `board`, `system`, `audio`, `wav` and `png` are its modules of the same
 //! names. The chips are the family's Rust cores: m68000-rust, z80-rust, ym2612-rust
-//! and sn76489-rust. `trace` writes the lockstep trace both boards share
+//! and sn76489-rust. `frontend` and `play` (the `frontend` feature) are its
+//! `frontend.py`, the window. `trace` writes the lockstep trace both boards share
 //! (docs/handoff-brief.md, "The gate").
 
 pub mod arbiter;
@@ -12,8 +13,11 @@ pub mod audio;
 pub mod board;
 pub mod cartridge;
 pub mod eeprom;
+pub mod frontend;
 pub mod io;
 pub mod machine;
+#[cfg(feature = "frontend")]
+pub mod play;
 pub mod png;
 pub mod render;
 pub mod system;

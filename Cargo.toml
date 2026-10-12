@@ -19,6 +19,16 @@ ym2612-rust = { git = "https://github.com/alewman/ym2612-rust", rev = "3061637d2
 sn76489-rust = { git = "https://github.com/alewman/sn76489-rust", rev = "c5fc09e43f8e9377a4e51c30e37c27ecb2e81476" }
 flate2 = "1"
 sha1_smol = "1"
+# The window (md-play), only with the frontend feature: SDL2, as the reference's
+# pygame-ce. unsafe_textures drops the textures' borrow of their creator.
+sdl2 = { version = "0.38", optional = true, features = ["unsafe_textures"] }
+
+[features]
+frontend = ["dep:sdl2"]
+
+[[bin]]
+name = "md-play"
+required-features = ["frontend"]
 
 [profile.release]
 debug = 1
