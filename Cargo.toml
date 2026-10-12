@@ -12,9 +12,8 @@ publish = false
 name = "megadrive_rust"
 
 [dependencies]
-# The family's cores, pinned by commit (README, the first table). m68000-rust is its
-# branch board-hooks until that merges (docs/handoff-brief.md).
-m68000-rust = { git = "https://github.com/alewman/m68000-rust", rev = "e1b800038629b066fef91d48a3b8442a18150029" }
+# The family's cores, pinned by commit (README, the first table).
+m68000-rust = { git = "https://github.com/alewman/m68000-rust", rev = "ce3b48917baa5ee326b1544cb904292040db5b50" }
 z80-rust = { git = "https://github.com/alewman/z80-rust", rev = "3b15c1d1549aa6d6db951cc70d721ccd5d03965a" }
 ym2612-rust = { git = "https://github.com/alewman/ym2612-rust", rev = "3061637d2c0aead30a2fa8f4771ee8c992df4086" }
 sn76489-rust = { git = "https://github.com/alewman/sn76489-rust", rev = "c5fc09e43f8e9377a4e51c30e37c27ecb2e81476" }

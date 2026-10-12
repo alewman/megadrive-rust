@@ -24,7 +24,7 @@ runs on the family's Rust cores:
 
 | Python core pin (the board's) | Rust core | Rust pin |
 | --- | --- | --- |
-| m68000-python `38dbd0f` | m68000-rust | `board-hooks` (`b3df005` + the two hooks below) |
+| m68000-python `38dbd0f` | m68000-rust | main `ce3b489` (`b3df005` + the two hooks below) |
 | z80-python `b62891b` | z80-rust | `b62891b` (main `3b15c1d`) |
 | ym2612-python `2c2ab23` | ym2612-rust | `2c2ab23` (main `3061637`) |
 | sn76489-python `b0acbc8` | sn76489-rust | `9ed3b85`; the chip is identical (main `c5fc09e`) |
@@ -59,7 +59,7 @@ callables to both CPUs and calls back into the system from inside them. Here:
 - `Lockup`, raised out of a CPU step in Python, is recorded by the bus and returned
   by `System::step` as an error once the step ends.
 
-m68000-rust needed two hooks, on its branch `board-hooks` (`e1b8000`):
+m68000-rust needed two hooks, on its branch `board-hooks` (`e1b8000`), merged as `ce3b489`:
 - `Cycle::irc`. The Python board reads `cpu.irc` inside a callable, for open bus.
 - `Bus::acknowledge_clock_credit`. The Python board adds its holds to `cpu.clock`
   inside the acknowledge callable, for the E clock.

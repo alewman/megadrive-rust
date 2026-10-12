@@ -43,7 +43,7 @@ checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
 [[package]]
 name = "m68000-rust"
 version = "0.1.0"
-source = "git+https://github.com/alewman/m68000-rust?rev=e1b800038629b066fef91d48a3b8442a18150029#e1b800038629b066fef91d48a3b8442a18150029"
+source = "git+https://github.com/alewman/m68000-rust?rev=ce3b48917baa5ee326b1544cb904292040db5b50#ce3b48917baa5ee326b1544cb904292040db5b50"
 dependencies = [
  "flate2",
  "serde",

@@ -12,7 +12,8 @@ own their buses, where the Python board hands callables to both CPUs and calls b
 into the system from inside them. The handoff brief ("The shape Rust forces") gives
 the resulting layout, and each module's header says what changed there.
 
-m68000-rust needed two additions, on its branch `board-hooks` (`e1b8000`). The core's
+m68000-rust needed two additions, on its branch `board-hooks` (`e1b8000`),
+merged to its main as `ce3b489`, which this board now pins. The core's
 own tests and clippy pass with them:
 - `Cycle::irc`, for open bus;
 - `Bus::acknowledge_clock_credit`, for the E clock after a held push.

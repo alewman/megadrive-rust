@@ -15,7 +15,7 @@ It runs on the family's Rust cores:
 
 | Chip | Core | Pin |
 | --- | --- | --- |
-| 68000 | [m68000-rust](https://github.com/alewman/m68000-rust) | `board-hooks` (`e1b8000`), see below |
+| 68000 | [m68000-rust](https://github.com/alewman/m68000-rust) | `ce3b489` (main, with the board's two hooks, see below) |
 | Z80 | [z80-rust](https://github.com/alewman/z80-rust) | `3b15c1d` (= z80-python `b62891b`) |
 | YM2612 / YM3438 | [ym2612-rust](https://github.com/alewman/ym2612-rust) | `3061637` (= ym2612-python `2c2ab23`) |
 | SN76489 (the VDP's PSG) | [sn76489-rust](https://github.com/alewman/sn76489-rust) | `c5fc09e` (= sn76489-python `9ed3b85`, the chip of the board's `b0acbc8`) |
@@ -133,8 +133,8 @@ These paths the reference reaches only through reentrancy are not imitated:
 - **A 68000-to-VDP DMA whose source is the Z80's space or $A1xxxx.** It reads what
   the reference's would, but without first running the Z80 up to the read.
 
-No case of the gate reaches either. m68000-rust needed two hooks for the board, on its
-branch `board-hooks`:
+No case of the gate reaches either. m68000-rust needed two hooks for the board, added by
+its PR #1 (merged as `ce3b489`):
 - `Cycle::irc`: the reference's board reads the CPU's IRC inside a bus callable, for
   open bus.
 - `Bus::acknowledge_clock_credit`: it adds its holds to the CPU's clock inside the
