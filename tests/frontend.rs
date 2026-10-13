@@ -5,9 +5,9 @@
 //! (`cargo test --features frontend`); CI builds without it.
 
 use megadrive_rust::frontend::{
-    frame_bytes, machine_for, sound_samples, stamp, where_, CONTROLLER, KEYS,
+    frame_bytes, layout, machine_for, pad_for, sound_samples, stamp, where_, KEYS, LAYOUTS,
 };
-use megadrive_rust::io::BUTTONS;
+use megadrive_rust::io::{BUTTONS, DOWN, LEFT, RIGHT, UP};
 
 #[test]
 fn frame_bytes_are_opaque_bgra() {
@@ -46,7 +46,37 @@ fn every_pad_button_has_a_key() {
     keys.sort_unstable();
     buttons.sort_unstable();
     assert_eq!(keys, buttons);
-    assert_eq!(CONTROLLER.len(), 8); // the d-pad comes from the controller's own
+    // Each controller layout has every button but the d-pad, which comes from the
+    // controller's own, once each, on eight different controller buttons.
+    let rest: Vec<u16> = buttons
+        .iter()
+        .copied()
+        .filter(|b| ![UP, DOWN, LEFT, RIGHT].contains(b))
+        .collect();
+    for (name, map) in LAYOUTS {
+        let mut pad: Vec<u16> = map.iter().map(|(button, _)| *button).collect();
+        pad.sort_unstable();
+        assert_eq!(pad, rest, "{name}");
+        let mut names: Vec<&str> = map.iter().map(|(_, n)| *n).collect();
+        names.sort_unstable();
+        names.dedup();
+        assert_eq!(names.len(), 8, "{name}");
+        assert!(layout(name).is_ok());
+    }
+    assert!(layout("xbox").is_err());
+}
+
+#[test]
+fn the_pad_follows_the_headers_io_support() {
+    let io = |field: &str| {
+        let mut image = vec![0u8; 0x200];
+        image[0x190..0x190 + field.len()].copy_from_slice(field.as_bytes());
+        image
+    };
+    assert_eq!(pad_for(&io("J6")), "6button"); // Super Street Fighter II
+    assert_eq!(pad_for(&io("J64")), "6button"); // Mortal Kombat 3
+    assert_eq!(pad_for(&io("J")), "3button");
+    assert_eq!(pad_for(b""), "3button");
 }
 
 #[test]
@@ -91,6 +121,7 @@ fn the_window_runs_headless_and_survives_a_resolution_change() {
             fm: true,
             skip: 0,
             pads: [String::from("3button"), String::from("3button")],
+            layout: String::from("snes"),
             save: None,
             tmss_rom: None,
         },

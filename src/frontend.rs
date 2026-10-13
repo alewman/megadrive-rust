@@ -34,9 +34,11 @@ pub const KEYS: [(u16, &[&str]); 12] = [
     (MODE, &["Q"]),
 ];
 
-/// A game controller, by pad button (SDL's controller button names). The face buttons
-/// follow the Mega Drive's own row -- A, B, C along the bottom as X, A, B -- and the
-/// 6-button pad's top row X, Y, Z sits on left shoulder, Y and right shoulder.
+/// A game controller, by pad button (SDL's controller button names), in the Mega
+/// Drive's own layout: A, B, C along the bottom row as the left, bottom and right face
+/// buttons, and the 6-button pad's X, Y, Z as left shoulder, the top face button and
+/// right shoulder. SDL's names are positions, Xbox-style -- `a` bottom, `b` right, `x`
+/// left, `y` top -- once [`crate::play`] turns off its relabelling of Nintendo pads.
 pub const CONTROLLER: [(u16, &str); 8] = [
     (A, "x"),
     (B, "a"),
@@ -47,6 +49,34 @@ pub const CONTROLLER: [(u16, &str); 8] = [
     (START, "start"),
     (MODE, "back"),
 ];
+
+/// The Super Nintendo fighting layout, for 6-button games such as Street Fighter II:
+/// the top row X, Y, Z (light, medium, heavy punch) on the left and top face buttons and
+/// left shoulder, the bottom row A, B, C (the kicks) on the bottom and right face
+/// buttons and right shoulder.
+pub const CONTROLLER_SNES: [(u16, &str); 8] = [
+    (X, "x"),
+    (Y, "y"),
+    (Z, "leftshoulder"),
+    (A, "a"),
+    (B, "b"),
+    (C, "rightshoulder"),
+    (START, "start"),
+    (MODE, "back"),
+];
+
+/// The controller layouts `md-play --layout` takes, the default first.
+pub const LAYOUTS: [(&str, &[(u16, &str); 8]); 2] =
+    [("sega", &CONTROLLER), ("snes", &CONTROLLER_SNES)];
+
+/// A controller layout by name.
+pub fn layout(name: &str) -> Result<&'static [(u16, &'static str); 8], String> {
+    LAYOUTS
+        .iter()
+        .find(|(n, _)| *n == name)
+        .map(|(_, l)| *l)
+        .ok_or(format!("unknown layout {name:?} (sega, snes)"))
+}
 
 /// Rows of 0xRRGGBB as opaque BGRA bytes (little-endian 0xFFRRGGBB words), SDL's
 /// ARGB8888 on this side of the wire.
@@ -88,6 +118,19 @@ pub fn machine_for(image: &[u8]) -> &'static str {
         "megadrive-japan"
     } else {
         "genesis"
+    }
+}
+
+/// The pad a cartridge's header asks for, from its "I/O support" field at $190: "J"
+/// is the control pad and "6" the 6-button pad, which later games list (Super Street
+/// Fighter II and Comix Zone have "J6", Mortal Kombat 3 "J64"). A 6-button pad if the
+/// header names one, else the 3-button pad.
+pub fn pad_for(image: &[u8]) -> &'static str {
+    let field = image.get(0x190..image.len().min(0x1A0)).unwrap_or(&[]);
+    if field.contains(&b'6') {
+        "6button"
+    } else {
+        "3button"
     }
 }
 

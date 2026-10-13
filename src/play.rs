@@ -32,7 +32,7 @@ use sdl2::{EventPump, GameControllerSubsystem, Sdl};
 
 use crate::cartridge::{load_image, Cartridge};
 use crate::frontend::{
-    frame_bytes, sound_samples, stamp, where_, BUFFER_FRAMES, CONTROLLER, KEYS, SAMPLE_RATE,
+    frame_bytes, layout, sound_samples, stamp, where_, BUFFER_FRAMES, KEYS, SAMPLE_RATE,
 };
 use crate::io::{Device, DOWN, LEFT, RIGHT, UP};
 use crate::machine::machine;
@@ -49,6 +49,8 @@ pub struct Options {
     pub fm: bool,
     pub skip: u32,
     pub pads: [String; 2],
+    /// The controller layout, by name ([`crate::frontend::LAYOUTS`]).
+    pub layout: String,
     pub save: Option<PathBuf>,
     pub tmss_rom: Option<PathBuf>,
 }
@@ -127,7 +129,7 @@ impl Frontend {
                 Ok((button, codes))
             })
             .collect::<Result<Vec<_>, String>>()?;
-        let buttons = CONTROLLER
+        let buttons = layout(&options.layout)?
             .iter()
             .map(|&(button, name)| {
                 Button::from_string(name)
@@ -144,7 +146,13 @@ impl Frontend {
             textures,
             texture,
             events: sdl.event_pump()?,
-            controller_system: sdl.game_controller()?,
+            controller_system: {
+                // SDL2 names a Nintendo pad's face buttons by their printed letters
+                // unless told otherwise, swapping A with B and X with Y against the
+                // positions the layouts name. Set before the subsystem starts.
+                sdl2::hint::set("SDL_GAMECONTROLLER_USE_BUTTON_LABELS", "0");
+                sdl.game_controller()?
+            },
             controllers: Vec::new(),
             device,
             keys,

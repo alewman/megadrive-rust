@@ -5,13 +5,13 @@
 use std::path::PathBuf;
 
 use megadrive_rust::cartridge::load_image;
-use megadrive_rust::frontend::{machine_for, HELP};
+use megadrive_rust::frontend::{layout, machine_for, pad_for, HELP};
 use megadrive_rust::machine::MACHINE_NAMES;
 use megadrive_rust::play::{Frontend, Options};
 
 const USAGE: &str = "md-play CART [--machine NAME] [--scale N] [--no-audio] [--no-fm] \
-[--skip N] [--pad KIND] [--pad2 KIND] [--save FILE] [--tmss-rom FILE] [--fullscreen] \
-[--frames N]";
+[--skip N] [--pad KIND] [--pad2 KIND] [--layout sega|snes] [--save FILE] \
+[--tmss-rom FILE] [--fullscreen] [--frames N]";
 
 fn main() -> Result<(), String> {
     let mut args = std::env::args().skip(1);
@@ -19,7 +19,9 @@ fn main() -> Result<(), String> {
     let mut machine_name: Option<String> = None;
     let (mut scale, mut skip) = (3u32, 0u32);
     let (mut audio, mut fm, mut fullscreen) = (true, true, false);
-    let mut pads = [String::from("3button"), String::from("3button")];
+    // Port 1's pad defaults to the one the header asks for.
+    let (mut pad, mut pad2) = (None, String::from("3button"));
+    let mut layout_name = String::from("sega");
     let (mut save, mut tmss_rom, mut frames) = (None, None, None);
     while let Some(arg) = args.next() {
         let mut value = || args.next().ok_or(format!("{arg} needs a value"));
@@ -29,8 +31,9 @@ fn main() -> Result<(), String> {
             "--no-audio" => audio = false,
             "--no-fm" => fm = false,
             "--skip" => skip = value()?.parse().map_err(|_| "bad --skip")?,
-            "--pad" => pads[0] = value()?,
-            "--pad2" => pads[1] = value()?,
+            "--pad" => pad = Some(value()?),
+            "--pad2" => pad2 = value()?,
+            "--layout" => layout_name = value()?,
             "--save" => save = Some(PathBuf::from(value()?)),
             "--tmss-rom" => tmss_rom = Some(PathBuf::from(value()?)),
             "--fullscreen" => fullscreen = true,
@@ -45,10 +48,10 @@ fn main() -> Result<(), String> {
         }
     }
     let rom = rom.ok_or(USAGE)?;
-    let machine = match machine_name {
-        Some(name) => name,
-        None => machine_for(&load_image(&rom)?).to_string(),
-    };
+    layout(&layout_name)?;
+    let image = load_image(&rom)?;
+    let machine = machine_name.unwrap_or_else(|| machine_for(&image).to_string());
+    let pads = [pad.unwrap_or_else(|| pad_for(&image).to_string()), pad2];
     if !MACHINE_NAMES.contains(&machine.as_str()) {
         return Err(format!(
             "unknown machine {machine}: one of {}",
@@ -58,8 +61,9 @@ fn main() -> Result<(), String> {
     let sdl = sdl2::init()?;
     println!("{HELP}");
     println!(
-        "{} on {machine}",
-        rom.file_name().unwrap_or_default().to_string_lossy()
+        "{} on {machine}, {} pad, {layout_name} layout",
+        rom.file_name().unwrap_or_default().to_string_lossy(),
+        pads[0]
     );
     let mut frontend = Frontend::new(
         &sdl,
@@ -72,6 +76,7 @@ fn main() -> Result<(), String> {
             fm,
             skip,
             pads,
+            layout: layout_name,
             save,
             tmss_rom,
         },

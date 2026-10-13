@@ -54,8 +54,8 @@ in the reference.
 ```text
 cargo build --release --features frontend      # needs SDL2 (libsdl2-dev)
 target/release/md-play CART [--machine NAME] [--scale 3] [--no-audio] [--no-fm]
-       [--skip N] [--pad 6button] [--pad2 none] [--save game.srm] [--tmss-rom BOOT.zip]
-       [--fullscreen]
+       [--skip N] [--pad 6button] [--pad2 none] [--layout snes] [--save game.srm]
+       [--tmss-rom BOOT.zip] [--fullscreen]
 ```
 
 | Key | Does | Key | Does |
@@ -67,11 +67,16 @@ target/release/md-play CART [--machine NAME] [--scale 3] [--no-audio] [--no-fm]
 | F5 | power cycle | F11 | fullscreen |
 | F12 | screenshot to `screenshots/` | Esc | quit |
 
-A game controller works too, on port 1 with the keyboard and the second on port 2:
-A, B, C are its X, A, B; the 6-button pad's X, Y, Z are left shoulder, Y and right
-shoulder; Start is Start and Mode is Back. Without `--machine` the machine comes from
-the header's country codes: the USA's Genesis first, then a PAL Mega Drive, then a
-Japanese one.
+A game controller works too, on port 1 with the keyboard and the second on port 2.
+Buttons go by position, whatever their letters: A, B, C are the left, bottom and
+right face buttons (X, A, B on an Xbox pad; Y, B, A on a Nintendo one), and the
+6-button pad's X, Y, Z are left shoulder, the top face button and right shoulder.
+`--layout snes` is the Super Nintendo fighting layout instead: X, Y, Z (the punches in
+Street Fighter II) on the left and top face buttons and left shoulder, A, B, C (the
+kicks) on the bottom and right face buttons and right shoulder. Start is Start and
+Mode is Back. Without `--pad` port 1 has the pad the header's I/O field asks for, the
+6-button pad if it lists "6"; without `--machine` the machine comes from the header's
+country codes: the USA's Genesis first, then a PAL Mega Drive, then a Japanese one.
 
 `md-play` is the reference's `frontend.py` (`src/frontend.rs` and `src/play.rs`) on
 SDL2 itself instead of pygame-ce. The sound queue sets the pace, so the console runs at
