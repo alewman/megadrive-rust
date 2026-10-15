@@ -55,7 +55,7 @@ in the reference.
 cargo build --release --features frontend      # needs SDL2 (libsdl2-dev)
 target/release/md-play CART [--machine NAME] [--scale 3] [--no-audio] [--no-fm]
        [--skip N] [--pad 6button] [--pad2 none] [--layout snes] [--save game.srm]
-       [--tmss-rom BOOT.zip] [--fullscreen]
+       [--tmss-rom BOOT.zip] [--volume 12] [--fullscreen]
 ```
 
 | Key | Does | Key | Does |
@@ -66,6 +66,14 @@ target/release/md-play CART [--machine NAME] [--scale 3] [--no-audio] [--no-fm]
 | Tab (held) | fast forward | F3 | pause |
 | F5 | power cycle | F11 | fullscreen |
 | F12 | screenshot to `screenshots/` | Esc | quit |
+| `-` `=` | volume down, up (3 dB) | | |
+
+The window plays 12 dB louder than the board's mix (`--volume DB`, from -30 to 24;
+`-` and `=` step it). The mix leaves room for every channel at full volume at once,
+which no game comes near (fourteen titles peak 10.5 to 23 dB below full scale), so a
+soft clamp rounds off the rare peak that would go over: untouched to -3 dBFS, bent
+toward full scale above. Only the window: `md-run`'s WAVs and the traces are the mix
+unchanged.
 
 A game controller works too, on port 1 with the keyboard and the second on port 2.
 Buttons go by position, whatever their letters: A, B, C are the left, bottom and

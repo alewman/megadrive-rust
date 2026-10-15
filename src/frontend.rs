@@ -16,7 +16,8 @@ pub const HELP: &str = "\
 Arrows       D-pad              Z X C / J K L   A B C          A S D   X Y Z
 Enter        Start              Q               Mode           Backspace   reset button
 Tab (hold)   fast forward       F3              pause          F5      power cycle
-F11          fullscreen         F12             screenshot     Esc     quit";
+F11          fullscreen         F12             screenshot     Esc     quit
+- =          volume down / up";
 
 /// The keyboard, by pad button (SDL's key names, looked up when the window opens).
 pub const KEYS: [(u16, &[&str]); 12] = [
@@ -88,13 +89,39 @@ pub fn frame_bytes(frame: &[Vec<u32>]) -> Vec<u8> {
     out
 }
 
-/// Stereo pairs, as the board's audio path mixes them, as interleaved signed 16-bit
-/// values for SDL.
-pub fn sound_samples(samples: &[(i32, i32)]) -> Vec<i16> {
-    let clamp = |v: i32| v.clamp(-32768, 32767) as i16;
+/// md-play's master volume, in dB over the board's mix (`--volume`; `-` and `=` step
+/// it in the window). The mix leaves room for every channel at full volume at once,
+/// which no game comes near: fourteen titles measured peak 10.5 to 23 dB below full
+/// scale, so the window plays 12 dB up and lets [`sound_samples`] round off the rare
+/// peak that would go over.
+pub const VOLUME_DB: f64 = 12.0;
+pub const VOLUME_STEP_DB: f64 = 3.0;
+pub const VOLUME_RANGE_DB: (f64, f64) = (-30.0, 24.0);
+
+/// Where the soft clamp starts bending, as a fraction of full scale (-3 dBFS).
+const KNEE: f64 = 0.708;
+
+/// Stereo pairs, as the board's audio path mixes them, raised by `volume_db` and
+/// softly clamped, as interleaved signed 16-bit values for SDL. The clamp leaves all
+/// below -3 dBFS as it is and bends louder values toward full scale, never past it.
+/// Only the window uses this: md-run's WAVs and the traces take the mix unchanged.
+pub fn sound_samples(samples: &[(i32, i32)], volume_db: f64) -> Vec<i16> {
+    let gain = 10f64.powf(volume_db / 20.0);
+    let shape = |v: i32| {
+        let x = f64::from(v) * gain / 32768.0;
+        let a = x.abs();
+        let bent = if a <= KNEE {
+            a
+        } else {
+            KNEE + (1.0 - KNEE) * ((a - KNEE) / (1.0 - KNEE)).tanh()
+        };
+        (bent.copysign(x) * 32768.0)
+            .round()
+            .clamp(-32768.0, 32767.0) as i16
+    };
     samples
         .iter()
-        .flat_map(|&(left, right)| [clamp(left), clamp(right)])
+        .flat_map(|&(left, right)| [shape(left), shape(right)])
         .collect()
 }
 

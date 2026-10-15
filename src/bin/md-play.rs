@@ -5,13 +5,13 @@
 use std::path::PathBuf;
 
 use megadrive_rust::cartridge::load_image;
-use megadrive_rust::frontend::{layout, machine_for, pad_for, HELP};
+use megadrive_rust::frontend::{layout, machine_for, pad_for, HELP, VOLUME_DB, VOLUME_RANGE_DB};
 use megadrive_rust::machine::MACHINE_NAMES;
 use megadrive_rust::play::{Frontend, Options};
 
 const USAGE: &str = "md-play CART [--machine NAME] [--scale N] [--no-audio] [--no-fm] \
 [--skip N] [--pad KIND] [--pad2 KIND] [--layout sega|snes] [--save FILE] \
-[--tmss-rom FILE] [--fullscreen] [--frames N]";
+[--tmss-rom FILE] [--volume DB] [--fullscreen] [--frames N]";
 
 fn main() -> Result<(), String> {
     let mut args = std::env::args().skip(1);
@@ -23,6 +23,7 @@ fn main() -> Result<(), String> {
     let (mut pad, mut pad2) = (None, String::from("3button"));
     let mut layout_name = String::from("sega");
     let (mut save, mut tmss_rom, mut frames) = (None, None, None);
+    let mut volume_db = VOLUME_DB;
     while let Some(arg) = args.next() {
         let mut value = || args.next().ok_or(format!("{arg} needs a value"));
         match arg.as_str() {
@@ -36,6 +37,8 @@ fn main() -> Result<(), String> {
             "--layout" => layout_name = value()?,
             "--save" => save = Some(PathBuf::from(value()?)),
             "--tmss-rom" => tmss_rom = Some(PathBuf::from(value()?)),
+            // dB over the board's mix: 12 unless given (frontend::VOLUME_DB).
+            "--volume" => volume_db = value()?.parse().map_err(|_| "bad --volume")?,
             "--fullscreen" => fullscreen = true,
             // Quit after N frames have been shown: for checking the window runs.
             "--frames" => frames = Some(value()?.parse().map_err(|_| "bad --frames")?),
@@ -48,6 +51,10 @@ fn main() -> Result<(), String> {
         }
     }
     let rom = rom.ok_or(USAGE)?;
+    let (low, high) = VOLUME_RANGE_DB;
+    if !(low..=high).contains(&volume_db) {
+        return Err(format!("--volume {volume_db}: from {low} to {high} dB"));
+    }
     layout(&layout_name)?;
     let image = load_image(&rom)?;
     let machine = machine_name.unwrap_or_else(|| machine_for(&image).to_string());
@@ -79,6 +86,7 @@ fn main() -> Result<(), String> {
             layout: layout_name,
             save,
             tmss_rom,
+            volume_db,
         },
     )?;
     let result = frontend.run(frames);

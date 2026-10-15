@@ -18,9 +18,24 @@ fn frame_bytes_are_opaque_bgra() {
 
 #[test]
 fn sound_samples_interleave_and_clamp() {
+    // At 0 dB, below the knee: the mix as it is, interleaved.
     assert_eq!(
-        sound_samples(&[(100, -100), (40_000, -40_000)]),
-        [100, -100, 32767, -32768]
+        sound_samples(&[(100, -100), (-23_000, 23_000)], 0.0),
+        [100, -100, -23_000, 23_000]
+    );
+    // +12 dB is x3.98.
+    assert_eq!(sound_samples(&[(1_000, -1_000)], 12.0), [3_981, -3_981]);
+    // Over the knee it bends, keeps its order and never reaches past full scale.
+    let loud: Vec<(i32, i32)> = (0..=40).map(|k| (k * 2_000, -k * 2_000)).collect();
+    let out = sound_samples(&loud, 12.0);
+    for pair in out.chunks(2).collect::<Vec<_>>().windows(2) {
+        assert!(pair[1][0] >= pair[0][0] && pair[1][1] <= pair[0][1]);
+    }
+    // 8,000 at +12 dB would be 0.97 of full scale; bent, it is 0.92.
+    assert_eq!(out[8], 30_072);
+    assert_eq!(
+        sound_samples(&[(i32::MAX, i32::MIN)], 24.0),
+        [32767, -32768]
     );
 }
 
@@ -124,6 +139,7 @@ fn the_window_runs_headless_and_survives_a_resolution_change() {
             layout: String::from("snes"),
             save: None,
             tmss_rom: None,
+            volume_db: megadrive_rust::frontend::VOLUME_DB,
         },
     )
     .unwrap();

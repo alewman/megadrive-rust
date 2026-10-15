@@ -33,6 +33,7 @@ use sdl2::{EventPump, GameControllerSubsystem, Sdl};
 use crate::cartridge::{load_image, Cartridge};
 use crate::frontend::{
     frame_bytes, layout, sound_samples, stamp, where_, BUFFER_FRAMES, KEYS, SAMPLE_RATE,
+    VOLUME_RANGE_DB, VOLUME_STEP_DB,
 };
 use crate::io::{Device, DOWN, LEFT, RIGHT, UP};
 use crate::machine::machine;
@@ -53,6 +54,8 @@ pub struct Options {
     pub layout: String,
     pub save: Option<PathBuf>,
     pub tmss_rom: Option<PathBuf>,
+    /// The master volume, in dB over the board's mix ([`crate::frontend::VOLUME_DB`]).
+    pub volume_db: f64,
 }
 
 /// One console in one window.
@@ -74,6 +77,9 @@ pub struct Frontend {
     pub paused: bool,
     pub fast: bool,
     locked_up: Option<String>,
+    /// The master volume now, and until when the title bar shows it after a step.
+    volume_db: f64,
+    volume_shown_until: Option<Instant>,
     frames: u32,
     console_frames: u32,
     fps_since: Instant,
@@ -160,6 +166,8 @@ impl Frontend {
             paused: false,
             fast: false,
             locked_up: None,
+            volume_db: options.volume_db,
+            volume_shown_until: None,
             frames: 0,
             console_frames: 0,
             fps_since: Instant::now(),
@@ -231,7 +239,7 @@ impl Frontend {
         let samples = self.system.take_audio();
         if let (Some(device), false) = (&self.device, self.fast) {
             // A device that refuses a queue is dropped silence, not a stopped console.
-            let _ = device.queue_audio(&sound_samples(&samples));
+            let _ = device.queue_audio(&sound_samples(&samples, self.volume_db));
         }
         if draw {
             let vdp = &self.system.board().vdp;
@@ -339,6 +347,10 @@ impl Frontend {
                     window.set_fullscreen(next)?;
                 }
                 Keycode::F12 => self.screenshot()?,
+                Keycode::Minus | Keycode::KpMinus => self.step_volume(-VOLUME_STEP_DB),
+                Keycode::Equals | Keycode::Plus | Keycode::KpPlus => {
+                    self.step_volume(VOLUME_STEP_DB);
+                }
                 Keycode::Tab => {
                     self.fast = true;
                     self.clear_sound();
@@ -352,6 +364,13 @@ impl Frontend {
             _ => {}
         }
         Ok(true)
+    }
+
+    fn step_volume(&mut self, step: f64) {
+        let (low, high) = VOLUME_RANGE_DB;
+        self.volume_db = (self.volume_db + step).clamp(low, high);
+        self.volume_shown_until = Some(Instant::now() + Duration::from_secs(2));
+        println!("volume {:+.0} dB", self.volume_db);
     }
 
     fn clear_sound(&self) {
@@ -404,8 +423,14 @@ impl Frontend {
             } else {
                 String::new()
             };
+            let volume = match self.volume_shown_until {
+                Some(until) if Instant::now() < until => {
+                    format!(" — volume {:+.0} dB", self.volume_db)
+                }
+                _ => String::new(),
+            };
             let title = format!(
-                "{} — {} — {speed:.0}% speed, {:.0} fps{state} — megadrive-rust",
+                "{} — {} — {speed:.0}% speed, {:.0} fps{state}{volume} — megadrive-rust",
                 stem(&self.options.rom),
                 where_(self.system.board().vdp.s.frame, self.rate()),
                 f64::from(self.frames) / elapsed,
