@@ -439,9 +439,16 @@ pub fn parse_software_list(xml: &str) -> HashMap<String, Listed> {
     table
 }
 
+static LIST: OnceLock<HashMap<String, Listed>> = OnceLock::new();
+
+/// Give the board the list itself, for a host with no files (the browser): call it
+/// before the first cartridge. Later calls do nothing.
+pub fn install_software_list(table: HashMap<String, Listed>) {
+    let _ = LIST.set(table);
+}
+
 /// The software list, read once.
 pub fn software_list() -> &'static HashMap<String, Listed> {
-    static LIST: OnceLock<HashMap<String, Listed>> = OnceLock::new();
     LIST.get_or_init(|| match std::fs::read_to_string(MAME_HASH) {
         Ok(xml) => parse_software_list(&xml),
         Err(_) => HashMap::new(),
