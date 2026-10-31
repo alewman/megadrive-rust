@@ -11,6 +11,10 @@ agreed on 2026-10-10, quoted here as it was given:
 4. Freeze a megadrive-python pin and transcribe the board.
 5. Gate it by lockstep against megadrive-python.
 
+This brief is the first transcription's, against `megadrive-rust-pin-1`. The board has
+since moved to `megadrive-rust-pin-2` (megadrive-python `b2d47cb`, with the SVP's core,
+`ssp1601-rust`); `docs/build-record.md` has that step.
+
 Steps 1-4 are done. The four chip cores exist in Rust, each level with the version
 the board pins. The board is frozen as the annotated tag `megadrive-rust-pin-1` on
 megadrive-python `d7882e1`. Why do this at all: the Python board is a reference and

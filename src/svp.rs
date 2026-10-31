@@ -246,6 +246,46 @@ pub struct Svp {
 }
 
 impl Svp {
+    /// The trace's line: the frame shows only what the 68000 has taken from the DSP, not
+    /// how far it has got.
+    pub fn trace_line(&self) -> String {
+        fn hex<T: std::fmt::UpperHex>(values: &[T]) -> String {
+            let list: Vec<String> = values.iter().map(|v| format!("{v:X}")).collect();
+            list.join(",")
+        }
+        fn words(values: &[u16]) -> u32 {
+            let bytes: Vec<u8> = values.iter().flat_map(|v| v.to_le_bytes()).collect();
+            crate::trace::crc32(&bytes)
+        }
+        let (d, m) = (&self.dsp, &self.memory);
+        format!(
+            "S cyc={} idle={} base={} target={} x={:X} y={:X} a={:X} st={:X} pc={:X} sp={} \
+             stack={} r={} ram={:08X} dram={:08X} iram={:08X} pmr={} pmw={} pmc={:X} \
+             status={:X} xst={:X} xst2={:X}",
+            self.dsp_cycles,
+            self.idle_period,
+            self.idle_base,
+            self.target,
+            d.x,
+            d.y,
+            d.a,
+            d.st,
+            d.pc,
+            d.sp,
+            hex(&d.stack),
+            hex(&d.r),
+            words(&d.ram),
+            words(&m.dram),
+            words(&m.iram),
+            hex(&m.pmac_read),
+            hex(&m.pmac_write),
+            m.pmc,
+            m.status,
+            m.xst,
+            m.xst2,
+        )
+    }
+
     pub fn new(padded: &[u8]) -> Self {
         let rom_words = padded
             .chunks_exact(2)

@@ -1150,6 +1150,14 @@ impl Mapper {
         }
     }
 
+    /// The SVP's trace line, on the board that has one.
+    pub fn svp_line(&self) -> Option<String> {
+        match &self.kind {
+            Kind::Svp(svp) => Some(svp.trace_line()),
+            _ => None,
+        }
+    }
+
     pub fn clocked(&self) -> bool {
         matches!(self.kind, Kind::Svp(_))
     }

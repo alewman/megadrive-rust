@@ -369,18 +369,74 @@ def h32_raster() -> bytes:
     return h32_sprites(raster=True)
 
 
+def window_bug() -> bytes:
+    """A window on the left with plane A at a fine scroll, plane B in priority over it: the
+    bug's shifted column is plane A's, so plane B's sequential names must stay in order."""
+    a = Asm(0x200)
+    a.w(0x46FC, 0x2700)
+    tmss_unlock(a)
+    a.w(0x41F9)
+    a.l(0xC00004)
+    a.w(0x43F9)
+    a.l(0xC00000)
+    for number, value in ((0, 0x04), (1, 0x24), (2, 0x30), (3, 0x2C), (4, 0x07), (5, 0x78),
+                          (7, 0x00), (11, 0x00), (12, 0x81), (13, 0x3F), (15, 0x02),
+                          (16, 0x01), (17, 0x06), (18, 0x00)):  # fmt: skip
+        vdp_reg(a, number, value)
+    control(a, 0xC0000000)
+    a.w(0x7E3F)
+    a.label("cram")
+    a.w(0x3007, 0xE548, 0x8047, 0x3280)  # d0 = d7 << 2 | d7
+    a.w(0x51CF)
+    a.rel16("cram")
+    control(a, 0x40000000)  # VRAM 0: 128 different tiles
+    a.w(0x303C, 0x07FF)
+    a.label("tiles")
+    a.w(0x3200)  # move.w d0,d1
+    a.w(0xC2FC, 0x1111)  # mulu #$1111,d1
+    a.w(0x3281)  # move.w d1,(a1)
+    a.w(0x51C8)
+    a.rel16("tiles")
+    control(a, 0x60000003)  # VRAM $E000: plane B, every name its own, high priority
+    a.w(0x303C, 0x07FF)
+    a.label("names")
+    a.w(0x3200, 0x0241, 0x007F, 0x0041, 0x8000)  # d1 = d0 & $7F | $8000
+    a.w(0x3281)
+    a.w(0x51C8)
+    a.rel16("names")
+    a.w(0x7E00)  # moveq #0,d7
+    vdp_reg(a, 1, 0x64)
+    a.w(0x46FC, 0x2000)
+    a.label("loop")
+    a.w(0x4E72, 0x2000)  # stop #$2000
+    a.w(0x6000)
+    a.rel16("loop")
+    a.label("vint")
+    a.w(0x48E7, 0x4000)  # movem.l d1,-(sp)
+    a.w(0x5247)  # addq.w #1,d7
+    a.w(0x20BC)
+    a.l(0x7C000003)  # VRAM $FC00: the horizontal scroll table
+    a.w(0x3207, 0x0041, 0x0001, 0x3281)  # plane A: d7 | 1, never on a whole 16 pixels
+    a.w(0x3287)  # plane B: d7
+    a.w(0x4CDF, 0x0002)  # movem.l (sp)+,d1
+    a.w(0x4E73)
+    a.bytes()
+    return cartridge(a, bytes(0x100), {30: a.labels["vint"]}, b"")
+
+
 EXAMPLES = {
     # name: (cartridge, frames, md_trace arguments)
     "board-tour": (board_tour, 120, []),
     "board-tour-nuked": (board_tour, 120, ["--machine", "nuked-md"]),
     "h32-sprites": (h32_sprites, 90, ["--machine", "megadrive"]),
     "h32-raster": (h32_raster, 60, []),
+    "window-bug": (window_bug, 40, []),
 }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    parser.add_argument("--python", default=str(REPO / "external/megadrive-python/.venv/bin/python"))
+    parser.add_argument("--python", default=str(REPO / "external/megadrive-python-pin2/.venv/bin/python"))
     args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     for name, (make, frames, extra) in EXAMPLES.items():

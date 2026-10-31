@@ -86,6 +86,20 @@ def frame_lines(system: System, index: int) -> str:
         f"vram={crc(bytes(vdp.vram))} cram={crc(packed('H', vdp.cram))} "
         f"vsram={crc(packed('H', vdp.vsram))} bat={crc(board.game_cartridge.save_bytes())}",
     ]
+    svp = board.game_cartridge
+    if getattr(svp, "dsp", None) is not None:
+        # The frame shows only what the 68000 has taken from the DSP, not how far it has got.
+        d = svp.dsp
+        out.append(
+            f"S cyc={svp.dsp_cycles} idle={svp.idle_period} base={svp.idle_base} "
+            f"target={svp.target} x={d.x:X} y={d.y:X} a={d.a:X} st={d.st:X} pc={d.pc:X} "
+            f"sp={d.sp} stack={','.join(f'{v:X}' for v in d.stack)} "
+            f"r={','.join(f'{v:X}' for v in d.r)} ram={crc(packed('H', d.ram))} "
+            f"dram={crc(packed('H', svp.dram))} iram={crc(packed('H', svp.iram))} "
+            f"pmr={','.join(f'{v:X}' for v in svp.pmac_read)} "
+            f"pmw={','.join(f'{v:X}' for v in svp.pmac_write)} pmc={svp.pmc:X} "
+            f"status={svp.status:X} xst={svp.xst:X} xst2={svp.xst2:X}"
+        )
     fifo = ",".join(
         f"{c:X}:{a:X}:{d:X}:{b(h)}{b(p)}:{ready}"
         for (c, a, d, h, p), ready in zip(vdp.fifo, vdp.fifo_ready, strict=True)

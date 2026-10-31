@@ -31,6 +31,46 @@ WORK = REPO / "external/faults"
 
 #: (name, file, the text, its replacement). Each text occurs exactly once.
 FAULTS = [
+    ("render: the window bug on both planes", "src/render.rs",
+     "let plane_window_bug = if plane == 0 { spans.window_bug } else { -1 };",
+     "let plane_window_bug = spans.window_bug;"),
+    ("mappers: Tekken's latch not minus one", "src/mappers.rs",
+     "return latch.wrapping_sub(1);", "return *latch;"),
+    ("mappers: Top Fighter's word by its high byte", "src/mappers.rs",
+     "*bank = u32::from(value & 0xFF);", "*bank = u32::from(value >> 8);"),
+    ("mappers: the M95320 never write-enabled", "src/mappers.rs",
+     "0x06 => self.wel = 1,", "0x06 => self.wel = 0,"),
+    ("mappers: Realtec starts on page 0", "src/mappers.rs",
+     "slots: [0x3F; 0x40],", "slots: [0; 0x40],"),
+    ("mappers: S&K's window not shifted", "src/mappers.rs",
+     "Some(address - 0x200000)", "Some(address)"),
+    ("mappers: 2-in-1 ignores the reset button", "src/mappers.rs",
+     "Kind::Codemasters2in1 { game } => *game ^= 1,", "Kind::Codemasters2in1 { game } => *game = 0,"),
+    ("mappers: Star Odyssey's base two bits", "src/mappers.rs",
+     "*base = u32::from((value >> 4) & 7);", "*base = u32::from((value >> 4) & 3);"),
+    ("mappers: Super Mario 2's /TIME word", "src/mappers.rs",
+     '"rom_smb2" => c((NONE, &[(0x00, 0x0A)], false)),', '"rom_smb2" => c((NONE, &[(0x00, 0x0B)], false)),'),
+    ("mappers: Chinese Fighter's page five bits", "src/mappers.rs",
+     "*page = (value != 0).then_some(u32::from(value & 0xF));",
+     "*page = (value != 0).then_some(u32::from(value & 0x1F));"),
+    ("svp: the DMA on time", "src/svp.rs",
+     "return self.read_word(address - 2);", "return self.read_word(address);"),
+    ("svp: the cell increment always 1", "src/svp.rs",
+     "moved = moved.wrapping_add(if address & 1 != 0 { 31 } else { 1 });",
+     "moved = moved.wrapping_add(1);"),
+    ("svp: overwrite mode writes the whole word", "src/svp.rs",
+     "if mode & 0x0400 != 0 {\n            overwrite(old, data)", "if mode & 0x0000 != 0 {\n            overwrite(old, data)"),
+    ("svp: the DSP's clock 3/8", "src/svp.rs",
+     "const SSP_CLOCK_DEN: i64 = 7;", "const SSP_CLOCK_DEN: i64 = 8;"),
+    # Boards with no local dump: only tests/boards.rs reaches these.
+    ("mappers: KOF98's pointer word", "src/mappers.rs",
+     "return if address & 1 == 0 { 0xF0 } else { 0 };", "return if address & 1 == 0 { 0xF1 } else { 0 };"),
+    ("mappers: Rock Heaven's word", "src/mappers.rs",
+     "Kind::RockHeaven(&[(0x500008, 0x5082)])", "Kind::RockHeaven(&[(0x500008, 0x5083)])"),
+    ("mappers: Red Cliff's first constant", "src/mappers.rs",
+     "c((&[(0x400000, 0x55), (0x400004, 0xAA)], NO_TIME, true))", "c((&[(0x400000, 0x54), (0x400004, 0xAA)], NO_TIME, true))"),
+    ("mappers: Top Play 96's RAM half the size", "src/mappers.rs",
+     "(0x200000, 0x20FFFF, 0x8000), true, plain", "(0x200000, 0x20FFFF, 0x4000), true, plain"),
     ("arbiter: the Z80's own cycle 30 MCLK", "src/arbiter.rs",
      "pub const OWN_CYCLE_MCLK: i64 = 29;", "pub const OWN_CYCLE_MCLK: i64 = 30;"),
     ("arbiter: the cut-off 22 MCLK", "src/arbiter.rs",
@@ -99,7 +139,9 @@ def build(fault) -> Path:
         shutil.rmtree(work)  # our own scratch copy under external/
     shutil.copytree(REPO / "src", work / "src")
     shutil.copytree(REPO / "tests", work / "tests")
-    shutil.copy(REPO / "Cargo.toml", work / "Cargo.toml")
+    # The copy is built from elsewhere, so a path dependency has to stay absolute.
+    manifest = (REPO / "Cargo.toml").read_text()
+    (work / "Cargo.toml").write_text(manifest.replace('path = "../', f'path = "{REPO.parent}/'))
     shutil.copy(REPO / "Cargo.lock", work / "Cargo.lock")
     source = (work / path).read_text()
     if source.count(old) != 1:
@@ -113,7 +155,8 @@ def build(fault) -> Path:
     shutil.copy(WORK / "target/release/md-trace", binary)
     # The repository's own tests (the example cartridges, the EEPROM vectors) as well.
     tests = subprocess.run(["nice", "rustup", "run", "stable", "cargo", "test", "--release",
-                            "-q", "--test", "examples", "--test", "eeprom"],
+                            "-q", "--test", "examples", "--test", "eeprom",
+                            "--test", "boards"],
                            cwd=work, env=env, capture_output=True, text=True)  # fmt: skip
     return binary, tests.returncode != 0
 

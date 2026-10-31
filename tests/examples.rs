@@ -60,4 +60,5 @@ fn h32_sprites_pal() {
 #[test]
 fn h32_raster() {
     check("h32-raster", "h32-raster.bin", 60, &[]);
+    check("window-bug", "window-bug.bin", 40, &[]);
 }

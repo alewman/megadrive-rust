@@ -44,6 +44,28 @@ were each traced to a cause, not waved away:
 
 The final run caught 24 of 24.
 
+## Pin 2, 2026-10-31
+
+megadrive-python moved 31 commits to `megadrive-rust-pin-2` (`b2d47cb`): the mappers, Pier
+Solar, lock-on, the SVP, and the window bug kept to plane A. `ssp1601-rust` is the SVP's core,
+transcribed from ssp1601-python `c863a2c`. The expansion sockets were left out, with nothing
+here to attach to them.
+
+`scripts/lockstep.py`: 80 cases, 114,000 frames, all identical. No case ever differed;
+two lock-on cases had to be rerun for a quoting mistake in `cases.tsv`.
+
+`scripts/seeded_faults.py`, 42 faults. The first run of the 14 new ones caught 7:
+
+| Fault | Why the gate could not see it | What now catches it |
+| --- | --- | --- |
+| The window bug on both planes | No case has a left window with plane A at a fine scroll and plane B showing through in those frames. | `window-bug`, a cartridge of our own. |
+| Tekken's latch, Top Fighter's word writes, Pier Solar's write enable, the 2-in-1 at reset | The games do not reach these in the frames scripted. | `tests/boards.rs`: every board access by access against the reference. |
+| The S&K window not shifted | Equivalent with Sonic 3 or any 2 MB cartridge, which mirrors over the shift; the first version of the vectors had the same blind spot. | `tests/boards.rs` with a 4 MB cartridge locked on. |
+| The DSP's clock 3/8 | The trace held nothing of the SVP, and a DSP an eighth slower showed the 68000 nothing different in those frames. | The DSP's and memory controller's state in the trace. The SVP cases were rerun with it. |
+
+Four faults on slots with no local dump were added, which only `tests/boards.rs` catches. The
+final run caught 42 of 42.
+
 ## Speed
 
 The README has the table: 246-376 fps with the FM on, 4-6 times real time, before
@@ -57,4 +79,4 @@ any optimization.
   `CARGO_TARGET_DIR=target/lint RUSTC=$(rustup which --toolchain stable rustc) rustup run stable cargo clippy --release --all-targets -- -D warnings`.
 - `scripts/fetch_megadrivepython.sh` clones megadrive-python (private) over SSH.
   `MEGADRIVE_PYTHON_SOURCE` can name a local clone. The script checks that the tag is
-  at `d7882e1`.
+  at the pinned commit.

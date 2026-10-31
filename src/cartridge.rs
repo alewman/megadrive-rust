@@ -628,8 +628,13 @@ impl Cartridge {
         }
     }
 
+    /// The SVP's trace line, on the board that has one.
+    pub fn svp_line(&self) -> Option<String> {
+        self.board.as_ref().and_then(|board| board.svp_line())
+    }
+
     /// A slot name that is its own board: the base cartridge with the board in it.
-    fn with_board(image: Vec<u8>, slot: &str, name: &str) -> Self {
+    pub fn with_board(image: Vec<u8>, slot: &str, name: &str) -> Self {
         let mut cart = Cartridge::new(image, slot, 0, name);
         let rom = std::mem::take(&mut cart.rom);
         let pad = if cart.image.is_empty() {

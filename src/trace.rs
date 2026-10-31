@@ -169,6 +169,9 @@ pub fn frame_lines(system: &mut System, index: u64) -> String {
         crc32(&words(&s.vsram)),
         crc32(&dev.cartridge.save_bytes())
     );
+    if let Some(line) = dev.cartridge.svp_line() {
+        let _ = writeln!(out, "{line}");
+    }
     let mut regs = String::new();
     for r in s.registers {
         let _ = write!(regs, "{r:02X}");
