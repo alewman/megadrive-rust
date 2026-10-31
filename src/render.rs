@@ -435,6 +435,10 @@ impl Renderer {
             } else {
                 &mut self.line_b
             };
+            // The window bug is plane A's alone (CMD: "the VDP is drawing the 2-cell column
+            // from plane A"); plane B has no window over it and must fetch its own
+            // columns undisturbed.
+            let plane_window_bug = if plane == 0 { spans.window_bug } else { -1 };
             if two_cell {
                 // Two-cell column vertical scroll: each 16-pixel column has its own VSRAM
                 // entry (CMD `genvdp.txt`, register $0B bit 2).
@@ -454,7 +458,7 @@ impl Renderer {
                         size,
                         scrolls[plane],
                         spans.im2,
-                        spans.window_bug,
+                        plane_window_bug,
                         x.max(first),
                         (x + 16).min(last),
                     );
@@ -470,7 +474,7 @@ impl Renderer {
                     size,
                     scrolls[plane],
                     spans.im2,
-                    spans.window_bug,
+                    plane_window_bug,
                     first,
                     last,
                 );

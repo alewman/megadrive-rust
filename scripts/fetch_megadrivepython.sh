@@ -6,8 +6,8 @@
 # MEGADRIVE_PYTHON_SOURCE overrides where it is cloned from (a local clone will do);
 # PYTHON names the interpreter (PyPy by default, which runs the reference fastest).
 set -euo pipefail
-TAG=${MEGADRIVE_PYTHON_TAG:-megadrive-rust-pin-1}
-COMMIT=${MEGADRIVE_PYTHON_COMMIT:-d7882e1}
+TAG=${MEGADRIVE_PYTHON_TAG:-megadrive-rust-pin-2}
+COMMIT=${MEGADRIVE_PYTHON_COMMIT:-b2d47cb}
 SOURCE=${MEGADRIVE_PYTHON_SOURCE:-git@github.com:alewman/megadrive-python.git}
 DEST=${1:-"$(dirname "$0")/../external/megadrive-python"}
 PYTHON=${PYTHON:-$(command -v pypy3.11 || command -v python3)}
@@ -25,5 +25,8 @@ if [ ! -x "$DEST/.venv/bin/python" ]; then
     "$PYTHON" -m venv "$DEST/.venv"
 fi
 "$DEST/.venv/bin/python" -m pip install -q -e "$DEST"
+# Virtua Racing's DSP, which the board loads if it is there. SSP1601_PYTHON_SOURCE overrides
+# where it comes from, for as long as it has no remote.
+"$DEST/.venv/bin/python" -m pip install -q "${SSP1601_PYTHON_SOURCE:-/data/emu/ssp1601-python}"
 "$DEST/.venv/bin/python" -m pip freeze | grep -E "python @ git" || true
 echo "megadrive-python $TAG ($(git -C "$DEST" rev-parse --short HEAD)) installed in $DEST/.venv"

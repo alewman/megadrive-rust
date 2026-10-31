@@ -44,3 +44,49 @@ sonic-md2j	1200	$ROMS/Sonic The Hedgehog (USA, Europe).zip	--machine megadrive2-
 sonic-reset	1200	$ROMS/Sonic The Hedgehog (USA, Europe).zip	--press start@700:710 --reset-at 400 --reset-at 900
 sor2-reset	1200	$ROMS/Streets of Rage 2 (USA).zip	--machine megadrive-tmss --tmss-rom $ROMS/[BIOS] Sega Mega Drive - Genesis - Boot ROM (World).zip --reset-at 650
 gunstar-nofm	1200	$ROMS/Gunstar Heroes (USA).zip	--no-fm --pad 6button --pad2 none
+# rung 5: the boards of pin 2, one image each, the same three presses of Start so a game
+# gets past its title; $NI is the No-Intro set, $AM its aftermarket half
+board-rockworld	900	$NI/Rockworld (Asia) (Ja) (Pirate).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-16mj2	900	$NI/Shiliu Zhang Mahjong II (Taiwan) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-777casino	900	$NI/Menghuan Shuiguo Pan - 777 Casino (Taiwan) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-bugs	900	$NI/Bug's Life, A - Chong Chong Weiji (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-chinf3	900	$NI/Tenchi o Kurau III - Sangoku Gaiden (Taiwan) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-cjmjclub	900	$NI/Chaoji Mahjong Club (Taiwan) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-elfwor	900	$NI/Super Magican - Ling Huan Daoshi (Taiwan) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-kof99	900	$NI/King of Fighters '99, The (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-lion2	900	$NI/Lion King II, The - Simba's Mighty Adventure (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-lion3	900	$NI/Super King Kong 99 (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-mcpir	900	$NI/Wisdom Tree Collection (USA) (Piko Interactive) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-mjlov	900	$NI/Du Shen Zhi - Menghuan Poker (Taiwan) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-pokea	900	$NI/Pikachu - Pocket Monster (Taiwan) (En) (Unl) (Alt).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-pokestad	900	$NI/Guaishou Jingji Chang - Pokemon Stadium (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-realtec	900	$NI/Tom Clown (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-rx3	900	$NI/Rockman X3 (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-sanguo5	900	$NI/Tunshi Tiandi III (Taiwan) (Simplified) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-sbubl	900	$NI/Super Bubble Bobble (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-sf001	900	$NI/Beggar Prince (USA, Europe) (Super Fighter Team) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-sf001r1	900	$NI/Beggar Prince (USA, Europe) (Rev 1) (Super Fighter Team) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-sf002	900	$NI/Legend of Wukong (USA, Europe) (Super Fighter Team) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-sf004	900	$NI/Star Odyssey (USA) (Super Fighter Team).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-smb	900	$NI/Super Mario Bros. (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-smb2	900	$NI/Super Mario 2 (Taiwan) (En) (Pirate).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-smouse	900	$NI/Huanle Taoqi Shu - Smart Mouse (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-smw64	900	$NI/Super Mario World 64 (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-soulb	900	$NI/Soul Blade (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-squir	900	$NI/Squirrel King (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-arg96	900	$NI/Futbol Argentino 96 (Argentina) (Pirate).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-tekkensp	900	$NI/Tekken Special (Taiwan) (En) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-xinqig	900	$NI/Xin Qigai Wangzi (Taiwan) (Unl).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-yasech	900	$NI/Wukong Waizhuan (Taiwan) (Unl) (Alt).zip	--press start@300:310 --press start@500:510 --press start@700:710
+board-cm2in1	900	$NI/Micro Machines (Europe) (Rev 2).zip	--reset-at 300 --reset-at 600 --press start@450:460
+board-psolar	1200	$AM/Pier Solar and the Great Architects (Europe) (En,Fr,De) (Reprint A) (Aftermarket) (Unl).zip	--machine megadrive --press start@500:510 --press start@800:810 --press start@1000:1010
+board-sk3	1200	$NI/Sonic & Knuckles (World).zip	--lock-on $ROMS/Sonic The Hedgehog 3 (USA).zip --press start@600:610 --press start@800:810
+board-sk	600	$NI/Sonic & Knuckles (World).zip
+board-ggenie	900	$NI/Game Genie (USA, Europe) (Rev 1) (Program).zip	--lock-on $ROMS/Sonic The Hedgehog (USA, Europe).zip --press start@300:310 --press a@500:510
+board-svp-usa	1800	$NI/Virtua Racing (USA).zip	--press start@600:610 --press start@900:910 --press start@1200:1210
+board-svp-eu	1800	$NI/Virtua Racing (Europe).zip	--machine megadrive --press start@600:610 --press start@900:910 --press start@1200:1210
+board-svp-jp	900	$NI/Virtua Racing (Japan) (En).zip	--machine megadrive2-japan --press start@300:310 --press start@500:510
+# the Titan demos the browser build carries
+titan-overdrive	2400	$AM/Overdrive (World) (v1.1) (Aftermarket) (Unl).zip	--machine megadrive
+titan-overdrive-evoke	1200	$AM/Overdrive (World) (Evoke 2013) (Aftermarket) (Unl).zip	--machine megadrive
+titan-mdniccc	2400	/data/emu/titan-demos/md-niccc/md-niccc.zip	--machine megadrive

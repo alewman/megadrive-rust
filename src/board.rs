@@ -401,16 +401,35 @@ impl Devices {
         }
     }
 
-    pub fn cart_write_time(&mut self, address: u32, value: u8) {
+    pub fn cart_write_time(&mut self, address: u32, high: u8, low: u8, word: bool) {
         if self.boot().is_none() {
-            self.cartridge.write_time(address, value);
+            self.cartridge.write_time_lanes(address, high, low, word);
         }
     }
 
-    pub fn cart_read_time(&self, address: u32) -> Option<u8> {
+    pub fn cart_read_time(&mut self, address: u32) -> Option<u16> {
         match self.boot() {
             Some(_) => None,
-            None => self.cartridge.read_time(address),
+            None => self.cartridge.read_time_word(address),
+        }
+    }
+
+    /// The board decodes $400000-$7FFFFF, and is on the bus.
+    pub fn cart_upper(&self) -> bool {
+        self.boot().is_none() && self.cartridge.upper
+    }
+
+    /// The console's reset button reaches the cartridge connector.
+    pub fn cart_reset(&mut self) {
+        if self.boot().is_none() {
+            self.cartridge.reset();
+        }
+    }
+
+    fn cart_dma_read_word(&mut self, address: u32) -> u16 {
+        match self.boot() {
+            Some(boot) => boot.read_word(address),
+            None => self.cartridge.dma_read_word(address),
         }
     }
 
@@ -645,7 +664,11 @@ impl Devices {
         } else if offset & 0xFF00 == 0x1100 || offset & 0xFF00 == 0x1200 {
             return false;
         } else if offset & 0xFF00 == 0x3000 {
-            self.cart_write_time(address | 1, low);
+            self.cart_write_time(address, high, low, word);
+        } else if offset & 0xFF00 == 0x5000 {
+            if self.boot().is_none() {
+                self.cartridge.write_a15(address, high, low, word);
+            }
         } else if offset & 0xFF00 == 0x4100 {
             // $A14101 bit 0: the cartridge (1) or the TMSS boot ROM (0); only bit 0 of
             // the byte written matters (the disassembly's `RAM_Code`; MAME `tmss_swap_w`).
@@ -677,10 +700,14 @@ impl Devices {
         if offset & 0xFF00 == 0x1100 {
             return None;
         }
+        if offset & 0xFF00 == 0x5000 && self.boot().is_none() {
+            if let Some(value) = self.cartridge.read_a15_word(address) {
+                return Some(value);
+            }
+        }
         if offset & 0xFF00 == 0x3000 {
-            if let Some(value) = self.cart_read_time(address | 1) {
-                let value = u16::from(value);
-                return Some(value | (value << 8));
+            if let Some(value) = self.cart_read_time(address) {
+                return Some(value);
             }
         }
         Some(self.open_bus_msb())
@@ -746,7 +773,7 @@ impl VdpHost for Devices {
     fn dma_read_word(&mut self, address: u32) -> u16 {
         let top = address >> 16;
         if top < 0x40 {
-            return self.cart_read_word(address);
+            return self.cart_dma_read_word(address);
         }
         if top >= 0xE0 {
             let offset = (address & 0xFFFF) as usize;
@@ -781,6 +808,9 @@ impl VdpHost for Devices {
                 "68000 read of ${address:06X} (32X area) without a 32X"
             ));
             return 0xFFFF;
+        }
+        if top < 0x80 && self.cart_upper() {
+            return self.cartridge.read_word(address);
         }
         self.open_bus_msb()
     }

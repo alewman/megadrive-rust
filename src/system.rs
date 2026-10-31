@@ -459,6 +459,8 @@ impl Md {
         };
         self.set_z80_reset(true, self.reset_at, None, false);
         self.reset_pressed = true;
+        // ... and the cartridge, if its board has anything that counts presses.
+        self.z80.bus.dev.cart_reset();
     }
 
     // -- the board's side that needs the Z80 ----------------------------------------------
@@ -695,6 +697,9 @@ impl Md {
             ));
             return 0;
         }
+        if top < 0x80 && dev.cart_upper() {
+            return dev.cartridge.read_word(address);
+        }
         dev.open_bus_msb()
     }
 
@@ -743,6 +748,9 @@ impl Md {
             ));
             return 0;
         }
+        if top < 0x80 && dev.cart_upper() {
+            return dev.cartridge.read_byte(address);
+        }
         if address & 1 != 0 {
             0
         } else {
@@ -778,6 +786,8 @@ impl Md {
             dev.lock_up(format!(
                 "68000 write to ${address:06X} (32X area) without a 32X"
             ));
+        } else if top < 0x80 && dev.cart_upper() {
+            dev.cartridge.write_word(address, value);
         }
     }
 
@@ -809,6 +819,8 @@ impl Md {
             dev.lock_up(format!(
                 "68000 write to ${address:06X} (32X area) without a 32X"
             ));
+        } else if top < 0x80 && dev.cart_upper() {
+            dev.cartridge.write_byte(address, value);
         }
     }
 }
@@ -983,6 +995,9 @@ impl System {
             md.mclk = start + elapsed;
             let mclk = md.mclk;
             md.catch_up_z80(mclk, false);
+            if md.z80.bus.dev.cartridge.clocked {
+                md.z80.bus.dev.cartridge.catch_up(mclk);
+            }
             self.stopped()?;
             return Ok(elapsed);
         }
@@ -1034,6 +1049,11 @@ impl System {
         };
         let target = md.mclk - lead;
         md.catch_up_z80(target, false);
+        if md.z80.bus.dev.cartridge.clocked {
+            // A cartridge with a processor of its own is one more clock domain.
+            let mclk = md.mclk;
+            md.z80.bus.dev.cartridge.catch_up(mclk);
+        }
         self.stopped()?;
         Ok(elapsed)
     }

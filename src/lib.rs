@@ -16,10 +16,12 @@ pub mod eeprom;
 pub mod frontend;
 pub mod io;
 pub mod machine;
+pub mod mappers;
 #[cfg(feature = "frontend")]
 pub mod play;
 pub mod png;
 pub mod render;
+pub mod svp;
 pub mod system;
 pub mod trace;
 pub mod vdp;

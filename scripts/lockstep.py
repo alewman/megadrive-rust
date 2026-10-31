@@ -31,6 +31,8 @@ DEFAULTS = {
     "ROMS": "/data/emu/roms/megadrive",
     "TEST_ROMS": "/data/emu/megadrive-python/tests/test_roms",
     "EXTRA_ROMS": "/data/emu/roms-retrobat/megadrive",
+    "NI": "/data/emu/source/myrient.erista.me/files/No-Intro/Sega - Mega Drive - Genesis",
+    "AM": "/data/emu/source/myrient.erista.me/files/No-Intro/Sega - Mega Drive - Genesis (Aftermarket)",
 }
 
 
@@ -102,7 +104,7 @@ def main() -> int:
     parser.add_argument("--frames", type=int, help="override every case's frame count")
     parser.add_argument("--rust", type=Path, default=REPO / "target/release/md-trace")
     parser.add_argument(
-        "--python", type=Path, default=REPO / "external/megadrive-python/.venv/bin/python"
+        "--python", type=Path, default=REPO / "external/megadrive-python-pin2/.venv/bin/python"
     )
     parser.add_argument("--out", type=Path, default=REPO / "external/traces")
     args = parser.parse_args()

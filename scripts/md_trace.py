@@ -158,6 +158,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--reset-at", type=int, action="append", default=[])
     parser.add_argument("--no-fm", action="store_true")
     parser.add_argument("--tmss-rom")
+    parser.add_argument("--lock-on")
     parser.add_argument("--pad", default="3button", choices=sorted(PAD_TYPES))
     parser.add_argument("--pad2", default="3button", choices=sorted(PAD_TYPES))
     parser.add_argument("--steps")
@@ -167,7 +168,7 @@ def main(argv: list[str] | None = None) -> int:
     steps = tuple(int(x) for x in args.steps.split(":")) if args.steps else None
     image = load_image(args.cartridge)
     digest = hashlib.sha1(image).hexdigest()
-    cartridge = Cartridge.from_image(image)
+    cartridge = Cartridge.lock_on(image, load_image(args.lock_on) if args.lock_on else None)
     system = System(
         MACHINES[args.machine],
         cartridge,

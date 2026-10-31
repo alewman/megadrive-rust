@@ -5,7 +5,9 @@
 //! 0.285 loads it; a detector), battery RAM (`rom_sram`, `rom_fram`, `rom_hardbl95`;
 //! CMD `gen-hw.txt` 4.3), the Sega mapper (`rom_ssf2`; Trzynadlowski's `ssf2tnc.txt`),
 //! Titan's Overdrive 2 board (`rom_titan`, the same mapper), Krikzz's Extended SSF
-//! (`ssf`, `ssf_sram`), the serial EEPROM boards ([`EEPROM_BOARDS`]) and the J-Cart.
+//! (`ssf`, `ssf_sram`), the serial EEPROM boards ([`EEPROM_BOARDS`]), the J-Cart, and
+//! the boards of [`crate::mappers`] (unlicensed mappers, Pier Solar, the two lock-on
+//! boards, the SVP), which take over at [`Cartridge::special`].
 //! The board comes from MAME's software list, read at runtime by SHA-1; an unlisted
 //! image falls back to its header.
 //!
@@ -22,6 +24,7 @@ use std::sync::OnceLock;
 
 use crate::eeprom::{SerialEEPROM, MODE1, MODE2, MODE3};
 use crate::io::Device;
+use crate::mappers::Mapper;
 
 pub const MAME_HASH: &str = "/usr/share/games/mame/hash/megadriv.xml";
 pub const IMAGE_SUFFIXES: [&str; 4] = [".md", ".bin", ".gen", ".smd"];
@@ -356,7 +359,11 @@ fn parse_int(text: &str) -> usize {
 
 /// SHA-1 of the ROM -> its entry, from MAME's megadriv.xml: for each part with
 /// exactly one ROM, the software's name, the `slot` feature ("rom" by default) and
-/// the `sram` data area's size. Empty when the list is not installed.
+/// the `sram` data area's size. Empty when the list is not installed. A cartridge of
+/// several chips is listed by the chips, and an image is the whole area, so only a
+/// single chip can be matched by hash; the exception is a dump of the first chip alone
+/// (No-Intro's Sonic & Knuckles), which names the board for a board that is not the
+/// plain one.
 pub fn parse_software_list(xml: &str) -> HashMap<String, Listed> {
     let mut table = HashMap::new();
     let mut software = String::new();
@@ -412,15 +419,17 @@ pub fn parse_software_list(xml: &str) -> HashMap<String, Listed> {
                 }
             }
             "/part" => {
-                if in_part && roms.len() == 1 {
-                    table.insert(
-                        roms[0].clone(),
-                        Listed {
-                            name: software.clone(),
-                            slot: slot.clone(),
-                            sram,
-                        },
-                    );
+                if in_part && (roms.len() == 1 || (!roms.is_empty() && slot != "rom")) {
+                    let entry = Listed {
+                        name: software.clone(),
+                        slot: slot.clone(),
+                        sram,
+                    };
+                    if roms.len() == 1 {
+                        table.insert(roms[0].clone(), entry);
+                    } else {
+                        table.entry(roms[0].clone()).or_insert(entry);
+                    }
                 }
                 in_part = false;
             }
@@ -525,6 +534,12 @@ pub struct Cartridge {
     pub decoded: bool,
     /// True when *anything* has to be looked at before the ROM.
     pub special: bool,
+    /// A board that is its own class ([`crate::mappers`]): it then answers everything.
+    pub board: Option<Box<Mapper>>,
+    /// The board decodes $400000-$7FFFFF itself; on every other board it is open bus.
+    pub upper: bool,
+    /// The board has a clock of its own ([`Cartridge::catch_up`]).
+    pub clocked: bool,
 }
 
 impl Cartridge {
@@ -560,7 +575,9 @@ impl Cartridge {
         let decoded = eeprom.is_some() || jcart;
         let special = !sram.is_empty() || decoded;
         let known = slot == "rom" || SRAM_SLOTS.contains(&slot) || MAPPER_SLOTS.contains(&slot);
-        let unsupported = if !known && !decoded {
+        let unsupported = if Mapper::is_board(slot) {
+            None // the board's own class decides what it maps
+        } else if !known && !decoded {
             Some(slot.to_string())
         } else if image.len() > ROM_WINDOW && !MAPPER_SLOTS.contains(&slot) {
             // Larger than the 68000's cartridge window with no mapper to page it in:
@@ -598,7 +615,27 @@ impl Cartridge {
             jcart_th: 1,
             decoded,
             special,
+            board: None,
+            upper: false,
+            clocked: false,
         }
+    }
+
+    /// A slot name that is its own board: the base cartridge with the board in it.
+    fn with_board(image: Vec<u8>, slot: &str, name: &str) -> Self {
+        let mut cart = Cartridge::new(image, slot, 0, name);
+        let rom = std::mem::take(&mut cart.rom);
+        let pad = if cart.image.is_empty() {
+            vec![0xFF, 0xFF]
+        } else {
+            padded(&cart.image)
+        };
+        let board = Mapper::for_slot(slot, &cart.image, rom, pad).expect("a board's slot");
+        cart.upper = board.upper;
+        cart.clocked = board.clocked();
+        cart.board = Some(Box::new(board));
+        cart.special = true;
+        cart
     }
 
     /// An empty slot (the reference's `Cartridge(b"")`).
@@ -629,6 +666,9 @@ impl Cartridge {
                 sram = 0x8000; // MAME's default range, $200000 + $FFFF
             }
             let (slot, name) = (listed.slot.clone(), listed.name.clone());
+            if Mapper::is_board(&slot) {
+                return Cartridge::with_board(image, &slot, &name);
+            }
             return Cartridge::new(image, &slot, sram, &name);
         }
         if image.len() >= 0x108 && SSF_HEADERS.iter().any(|h| &image[0x100..0x108] == *h) {
@@ -638,6 +678,12 @@ impl Cartridge {
                 None => Cartridge::new(image, "ssf", 0, ""),
                 Some((start, end)) => Cartridge::with_backup(image, "ssf_sram", start, end),
             };
+        }
+        if image.len() > ROM_WINDOW && image.get(0x110..0x118) == Some(&b"(c)T574 "[..]) {
+            // Watermelon's own publisher code on an 8 MB image the list does not hold
+            // (the Collector's Edition and Japanese Pier Solar): the board that code is
+            // the only one that ever shipped on.
+            return Cartridge::with_board(image, "rom_stm95", "");
         }
         let backup = header_backup_ram(&image);
         if image.len() > ROM_WINDOW && writes_sega_mapper(&image) {
@@ -657,10 +703,41 @@ impl Cartridge {
         Cartridge::new(image, "rom", 0, "")
     }
 
+    /// `image` with `sub_image` plugged into its top, for the cartridges that have a
+    /// socket there (Sonic & Knuckles, the Game Genie). None is an empty socket. `patch`
+    /// is Sonic & Knuckles's 256 KB second chip, if the caller has it. A cartridge with
+    /// no socket is a mistake in the command line.
+    pub fn lock_on(
+        image: Vec<u8>,
+        sub_image: Option<Vec<u8>>,
+        patch: Vec<u8>,
+    ) -> Result<Self, String> {
+        let mut cartridge = Cartridge::from_image(image);
+        let Some(sub_image) = sub_image else {
+            return Ok(cartridge);
+        };
+        let sub = Cartridge::from_image(sub_image);
+        match cartridge.board.as_mut() {
+            Some(board) if board.has_socket() => board.attach(sub, patch),
+            _ => {
+                let name = if cartridge.name.is_empty() {
+                    &cartridge.slot
+                } else {
+                    &cartridge.name
+                };
+                return Err(format!("{name}: no lock-on socket"));
+            }
+        }
+        Ok(cartridge)
+    }
+
     // -- the battery ----------------------------------------------------------------
 
     /// What this board saves with: "sram", "eeprom" or "" (nothing).
     pub fn battery(&self) -> &'static str {
+        if let Some(board) = &self.board {
+            return board.battery();
+        }
         if self.eeprom.is_some() {
             "eeprom"
         } else if !self.sram.is_empty() {
@@ -672,6 +749,9 @@ impl Cartridge {
 
     /// The battery's contents, to write to a file.
     pub fn save_bytes(&self) -> Vec<u8> {
+        if let Some(board) = &self.board {
+            return board.save_bytes();
+        }
         match &self.eeprom {
             Some(eeprom) => eeprom.memory.clone(),
             None => self.sram.clone(),
@@ -680,6 +760,10 @@ impl Cartridge {
 
     /// Put a saved file's contents back, as plugging the cartridge in does.
     pub fn load_bytes(&mut self, data: &[u8]) {
+        if let Some(board) = &mut self.board {
+            board.load_bytes(data);
+            return;
+        }
         let memory = match &mut self.eeprom {
             Some(eeprom) => &mut eeprom.memory,
             None => &mut self.sram,
@@ -755,6 +839,9 @@ impl Cartridge {
 
     pub fn read_word(&mut self, address: u32) -> u16 {
         if self.special {
+            if let Some(board) = &mut self.board {
+                return board.read_word(address);
+            }
             if self.sram_mapped && self.sram_start <= address && address < self.sram_end {
                 // 8-bit RAM on the odd byte: the even byte is undriven; $FF there as
                 // MAME does.
@@ -781,6 +868,9 @@ impl Cartridge {
 
     pub fn read_byte(&mut self, address: u32) -> u8 {
         if self.special {
+            if let Some(board) = &mut self.board {
+                return board.read_byte(address);
+            }
             if self.sram_mapped && self.sram_start <= address && address < self.sram_end {
                 return if address & 1 != 0 {
                     self.sram[((address - self.sram_start) >> 1) as usize]
@@ -813,6 +903,10 @@ impl Cartridge {
         if !self.special {
             return;
         }
+        if let Some(board) = &mut self.board {
+            board.write_byte(address, value);
+            return;
+        }
         if self.decoded && self.decode_write(address, value) {
             return;
         }
@@ -828,6 +922,10 @@ impl Cartridge {
 
     pub fn write_word(&mut self, address: u32, value: u16) {
         if !self.special {
+            return;
+        }
+        if let Some(board) = &mut self.board {
+            board.write_word(address, value);
             return;
         }
         if self.decoded {
@@ -895,6 +993,57 @@ impl Cartridge {
     /// A byte read from $A130xx, or None when no cartridge chip drives the bus.
     pub fn read_time(&self, _address: u32) -> Option<u8> {
         None
+    }
+
+    /// A word read from $A130xx: a board's own hook, else the byte on both lanes.
+    pub fn read_time_word(&mut self, address: u32) -> Option<u16> {
+        match &mut self.board {
+            Some(board) => board.read_time_word(address),
+            None => self
+                .read_time(address | 1)
+                .map(|value| u16::from(value) | u16::from(value) << 8),
+        }
+    }
+
+    /// A write to $A130xx with the byte lanes the 68000 drove.
+    pub fn write_time_lanes(&mut self, address: u32, high: u8, low: u8, word: bool) {
+        match &mut self.board {
+            Some(board) => board.write_time_lanes(address, high, low, word),
+            None => self.write_time(address | 1, low),
+        }
+    }
+
+    /// A word the VDP's DMA reads: a bus with its own latency, else the 68000's read.
+    pub fn dma_read_word(&mut self, address: u32) -> u16 {
+        match &mut self.board {
+            Some(board) => board.dma_read_word(address),
+            None => self.read_word(address),
+        }
+    }
+
+    /// The console's reset button reached the cartridge connector.
+    pub fn reset(&mut self) {
+        if let Some(board) = &mut self.board {
+            board.reset();
+        }
+    }
+
+    /// Run a board with a processor of its own up to `mclk`.
+    pub fn catch_up(&mut self, mclk: i64) {
+        if let Some(board) = &mut self.board {
+            board.catch_up(mclk);
+        }
+    }
+
+    /// $A15000-$A150FF, or None where the cartridge has nothing there.
+    pub fn read_a15_word(&mut self, address: u32) -> Option<u16> {
+        self.board.as_mut()?.read_a15_word(address)
+    }
+
+    pub fn write_a15(&mut self, address: u32, high: u8, low: u8, word: bool) {
+        if let Some(board) = &mut self.board {
+            board.write_a15(address, high, low, word);
+        }
     }
 }
 

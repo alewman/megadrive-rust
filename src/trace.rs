@@ -384,6 +384,7 @@ pub struct Run {
     pub resets: Vec<u64>,
     pub no_fm: bool,
     pub tmss_rom: Option<std::path::PathBuf>,
+    pub lock_on: Option<std::path::PathBuf>,
     pub pads: [String; 2],
     pub steps: Option<(u64, u64)>,
 }
@@ -398,6 +399,7 @@ impl Run {
             resets: Vec::new(),
             no_fm: false,
             tmss_rom: None,
+            lock_on: None,
             pads: [String::from("3button"), String::from("3button")],
             steps: None,
         }
@@ -418,6 +420,7 @@ impl Run {
                 .push(value()?.parse().map_err(|_| "bad --reset-at")?),
             "--no-fm" => self.no_fm = true,
             "--tmss-rom" => self.tmss_rom = Some(value()?.into()),
+            "--lock-on" => self.lock_on = Some(value()?.into()),
             "--pad" => self.pads[0] = value()?,
             "--pad2" => self.pads[1] = value()?,
             "--steps" => {
@@ -439,7 +442,11 @@ impl Run {
         let machine = machine(&self.machine).ok_or(format!("unknown machine {}", self.machine))?;
         let image = load_image(&self.cartridge)?;
         let digest = sha1_smol::Sha1::from(&image).digest().to_string();
-        let cartridge = Cartridge::from_image(image);
+        let sub = match &self.lock_on {
+            Some(path) => Some(load_image(path)?),
+            None => None,
+        };
+        let cartridge = Cartridge::lock_on(image, sub, Vec::new())?;
         let slot = cartridge.slot.clone();
         let pads = [
             Device::by_name(&self.pads[0])?,

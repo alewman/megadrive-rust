@@ -17,6 +17,8 @@ m68000-rust = { git = "https://github.com/alewman/m68000-rust", rev = "ce3b48917
 z80-rust = { git = "https://github.com/alewman/z80-rust", rev = "3b15c1d1549aa6d6db951cc70d721ccd5d03965a" }
 ym2612-rust = { git = "https://github.com/alewman/ym2612-rust", rev = "3061637d2c0aead30a2fa8f4771ee8c992df4086" }
 sn76489-rust = { git = "https://github.com/alewman/sn76489-rust", rev = "c5fc09e43f8e9377a4e51c30e37c27ecb2e81476" }
+# Virtua Racing's DSP. A path until ssp1601-python and this core have a remote.
+ssp1601-rust = { path = "../ssp1601-rust" }
 flate2 = "1"
 sha1_smol = "1"
 # The window (md-play), only with the frontend feature: SDL2, as the reference's

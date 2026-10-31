@@ -77,6 +77,7 @@ dependencies = [
  "sdl2",
  "sha1_smol",
  "sn76489-rust",
+ "ssp1601-rust",
  "ym2612-rust",
  "z80-rust",
 ]
@@ -200,6 +201,10 @@ source = "git+https://github.com/alewman/sn76489-rust?rev=c5fc09e43f8e9377a4e51c
 dependencies = [
  "serde_json",
 ]
+
+[[package]]
+name = "ssp1601-rust"
+version = "0.1.0"
 
 [[package]]
 name = "syn"
