@@ -81,9 +81,10 @@ pub fn sprite_limits(width: usize) -> (usize, usize, i64) {
 
 /// A plane's size by the two bits of register 16: cells across, how far the tile row
 /// is shifted to give the name table row's offset, and the vertical wrap mask (CMD
-/// `genvdp.txt`, register $10; Genesis Plus GX's tables for the invalid size).
+/// `genvdp.txt`, register $10; Genesis Plus GX's tables for the invalid height). The
+/// invalid width's shift clears the row, so every line takes the table's first row.
 pub const PLANE_CELLS: [i64; 4] = [32, 64, 32, 128];
-pub const PLANE_ROW_SHIFT: [i64; 4] = [6, 7, 0, 8];
+pub const PLANE_ROW_SHIFT: [i64; 4] = [6, 7, 16, 8];
 pub const PLANE_ROW_MASK: [i64; 4] = [0x0FF, 0x1FF, 0x2FF, 0x3FF];
 
 /// CRAM as RGB888: normal, shadowed and highlighted.
@@ -123,6 +124,22 @@ fn tile_row(vram: &[u8], address: usize, attribute: u8, flip: bool) -> [u8; 8] {
         pixels.reverse();
     }
     pixels
+}
+
+/// "13 additional left border pixels + 14 additional right border pixels" (Kabuto).
+pub const LEFT_BORDER: usize = 13;
+pub const RIGHT_BORDER: usize = 14;
+type Sides = ([u8; LEFT_BORDER], [u8; RIGHT_BORDER]);
+
+/// How many pixels a write that turns the display off shows behind the H counter: it
+/// acts later than a colour. 5 or less in H40, a bound from Overdrive 2's plasma, whose
+/// display goes off at the end of every line; H32 is not measured.
+fn display_off_delay(mode: HName) -> i64 {
+    if mode == HName::H40 {
+        5
+    } else {
+        output_delay(mode)
+    }
 }
 
 /// The picture of one VDP.
@@ -175,6 +192,22 @@ pub struct Renderer {
     /// What the line before scanned for the next line, as
     /// `((row, width, double interlace), latched sprites)`.
     scanned: Option<((i64, usize, bool), Vec<Latched>)>,
+    /// What phase 1 chose for the next line, waiting for phase 2 at the V step.
+    chosen: Option<((i64, usize, bool), Vec<usize>)>,
+    /// The cache as phase 1 walks it, taken as the V counter steps.
+    scan_cache: [u8; 80 * 4],
+    /// Whether the whole raster is kept, borders included (`enable_raster`).
+    raster: bool,
+    sides: Vec<Option<Sides>>,
+    done_sides: Vec<Option<Sides>>,
+    /// The address each sprite tile fetch last read.
+    slots: [usize; 40],
+    /// The line whose right border waits for the next line's sprite fetches: its row,
+    /// where the fetched tiles start, its plane, and their palettes.
+    right: Option<(usize, usize, bool, [u8; 2])>,
+    /// Whether that line went over with the finished frame.
+    right_done: bool,
+    last_attributes: [u8; 2],
 }
 
 impl Default for Renderer {
@@ -219,7 +252,41 @@ impl Renderer {
             fine: [0, 0],
             sprite_cache: [0; 80 * 4],
             scanned: None,
+            chosen: None,
+            scan_cache: [0; 80 * 4],
+            raster: false,
+            sides: Vec::new(),
+            done_sides: Vec::new(),
+            slots: [0; 40],
+            right: None,
+            right_done: false,
+            last_attributes: [0; 2],
         }
+    }
+
+    /// Keep the whole raster, for `frame_raster`: every line the display is on, whatever
+    /// its V counter, and the side borders beside it. A line the border was opened over
+    /// is drawn as any other, and its sprites are scanned, which sets the status bits a
+    /// game may read; nothing else about the machine changes. (`Vdp::enable_raster`.)
+    pub fn enable_raster(&mut self) {
+        self.raster = true;
+        for rows in [&mut self.pixels, &mut self.done_pixels] {
+            rows.resize(512, vec![0; 320]);
+        }
+        for widths in [&mut self.widths, &mut self.done_widths] {
+            widths.resize(512, 0);
+        }
+        for palettes in [&mut self.palettes, &mut self.done_palettes] {
+            palettes.resize(512, Vec::new());
+        }
+        for dots in [&mut self.dots, &mut self.done_dots] {
+            dots.resize(512, Vec::new());
+        }
+        for blanked in [&mut self.blanked, &mut self.done_blanked] {
+            blanked.resize(512, 0);
+        }
+        self.sides = vec![None; 512];
+        self.done_sides = vec![None; 512];
     }
 
     // -- the sprite cache -----------------------------------------------------------
@@ -228,6 +295,18 @@ impl Renderer {
     /// first four bytes of a sprite table entry ("this mechanism is sensitive to the
     /// entire 128 KB address range even in 64 KB mode", Kabuto). The table's base is
     /// register 5 shifted left 9, with bit 9 ignored in H40.
+    /// The V counter has stepped. Phase 2 of the line about to start is over ("1 raster
+    /// line before", Kabuto): its reads are taken now, with what was written through the
+    /// line before. Phase 1 of the line after runs in the blank from here, so a cache
+    /// write later in this line does not reach it.
+    pub fn latch_scan_cache(&mut self, vdp: &VdpState) {
+        if let Some((key, visible)) = self.chosen.take() {
+            let latched = self.sprite_phase2(vdp, key.1, key.0, key.2, &visible);
+            self.scanned = Some((key, latched));
+        }
+        self.scan_cache = self.sprite_cache;
+    }
+
     pub fn sprite_cache_write(&mut self, vdp: &VdpState, address: u32, value: u8) {
         let mut base = (i64::from(vdp.registers[5]) << 9) & 0x1FFFF;
         if vdp.hmode.name == HName::H40 {
@@ -435,6 +514,10 @@ impl Renderer {
             } else {
                 &mut self.line_b
             };
+            // The window bug is plane A's alone (CMD: "the VDP is drawing the 2-cell
+            // column from plane A"); plane B has no window over it and must fetch its own
+            // columns undisturbed.
+            let plane_window_bug = if plane == 0 { spans.window_bug } else { -1 };
             if two_cell {
                 // Two-cell column vertical scroll: each 16-pixel column has its own VSRAM
                 // entry (CMD `genvdp.txt`, register $0B bit 2).
@@ -454,7 +537,7 @@ impl Renderer {
                         size,
                         scrolls[plane],
                         spans.im2,
-                        spans.window_bug,
+                        plane_window_bug,
                         x.max(first),
                         (x + 16).min(last),
                     );
@@ -470,7 +553,7 @@ impl Renderer {
                     size,
                     scrolls[plane],
                     spans.im2,
-                    spans.window_bug,
+                    plane_window_bug,
                     first,
                     last,
                 );
@@ -494,10 +577,8 @@ impl Renderer {
 
     // -- sprites ----------------------------------------------------------------------
 
-    /// Phases 1 and 2 for display row `screen_row`, which the hardware runs a line ahead
-    /// of it (Kabuto). Phase 1 walks the cached linked list and keeps the first 20 (16)
-    /// sprites whose rows cover the line; phase 2 reads each one's X and pattern from
-    /// the table at register 5 as it stands, and Y and size from the cache.
+    /// Phases 1 and 2 at once for display row `screen_row`, for a line nothing scanned
+    /// ahead for.
     fn sprite_scan(
         &mut self,
         vdp: &VdpState,
@@ -505,14 +586,22 @@ impl Renderer {
         screen_row: i64,
         im2: bool,
     ) -> Vec<Latched> {
-        let vram = &vdp.vram;
-        let cache = &self.sprite_cache;
+        let visible = self.sprite_phase1(width, screen_row, im2);
+        self.sprite_phase2(vdp, width, screen_row, im2, &visible)
+    }
+
+    /// Phase 1: which sprites cover the line, from the cached linked list.
+    fn sprite_phase1(&mut self, width: usize, screen_row: i64, im2: bool) -> Vec<usize> {
         let (max_sprites, max_line, _) = sprite_limits(width);
         let tile_rows: i64 = if im2 { 16 } else { 8 };
         let start_v: i64 = if im2 { 0x100 } else { 0x80 };
         let mask_v: i64 = if im2 { 0x3FF } else { 0x1FF };
-        let cached_y = |entry: usize| {
-            ((i64::from(cache[entry]) << 8 | i64::from(cache[entry + 1])) & mask_v) - start_v
+        let scan = &self.scan_cache;
+        // The line counter is 9 bits: above line 0 it is negative.
+        let screen_row = if self.raster && screen_row >= 0x180 {
+            screen_row - 0x200
+        } else {
+            screen_row
         };
 
         let mut visible: Vec<usize> = Vec::new();
@@ -520,8 +609,8 @@ impl Renderer {
         let mut index = 0usize;
         for _ in 0..max_sprites {
             let entry = index * 4;
-            let y = cached_y(entry);
-            if y <= screen_row && screen_row < y + (i64::from(cache[entry + 2] & 3) + 1) * tile_rows
+            let y = ((i64::from(scan[entry]) << 8 | i64::from(scan[entry + 1])) & mask_v) - start_v;
+            if y <= screen_row && screen_row < y + (i64::from(scan[entry + 2] & 3) + 1) * tile_rows
             {
                 if visible.len() < max_line {
                     visible.push(index);
@@ -529,7 +618,7 @@ impl Renderer {
                     overflow = true; // more sprites on this line than there are slots
                 }
             }
-            let link = usize::from(cache[entry + 3] & 0x7F);
+            let link = usize::from(scan[entry + 3] & 0x7F);
             if link == 0 || link >= max_sprites {
                 // "a link attribute of 0 makes it stop scanning the list further"
                 // (Kabuto); an entry past the per-frame limit ends the list (Nemesis).
@@ -537,14 +626,37 @@ impl Renderer {
             }
             index = link;
         }
+        if overflow {
+            self.overflow = true;
+        }
+        visible
+    }
 
+    /// Phase 2: each visible sprite's X and pattern, from the table at register 5 as it
+    /// stands, and Y and size from the cache.
+    fn sprite_phase2(
+        &self,
+        vdp: &VdpState,
+        width: usize,
+        screen_row: i64,
+        im2: bool,
+        visible: &[usize],
+    ) -> Vec<Latched> {
+        let vram = &vdp.vram;
+        let cache = &self.sprite_cache;
+        let tile_rows: i64 = if im2 { 16 } else { 8 };
+        let start_v: i64 = if im2 { 0x100 } else { 0x80 };
+        let mask_v: i64 = if im2 { 0x3FF } else { 0x1FF };
+        let cached_y = |entry: usize| {
+            ((i64::from(cache[entry]) << 8 | i64::from(cache[entry + 1])) & mask_v) - start_v
+        };
         let mut base = (i64::from(vdp.registers[5]) << 9) & 0xFFFF;
         if width == 320 {
             base &= !0x200;
         }
         let pattern_mask = if im2 { 0x3FF } else { 0x7FF };
         let mut latched = Vec::with_capacity(visible.len());
-        for sprite in visible {
+        for &sprite in visible {
             let entry = ((base + sprite as i64 * 8) & 0xFFFF) as usize;
             let cached = sprite * 4;
             let y = cached_y(cached);
@@ -571,9 +683,6 @@ impl Renderer {
                 row & (tile_rows - 1),
             ));
         }
-        if overflow {
-            self.overflow = true;
-        }
         latched
     }
 
@@ -582,7 +691,8 @@ impl Renderer {
     /// masking the rest of the line.
     fn sprite_draw(&mut self, vram: &[u8], width: usize, latched: &[Latched], im2: bool) {
         let pattern_bytes: i64 = if im2 { 64 } else { 32 };
-        let mut tiles_left = sprite_limits(width).2;
+        let tiles = sprite_limits(width).2;
+        let mut tiles_left = tiles;
         let mut rendering = true;
         let mut last_x_nonzero = self.last_x_nonzero;
         let line = &mut self.line_s;
@@ -606,12 +716,15 @@ impl Renderer {
                     break;
                 }
                 tiles_left -= 1;
-                if !rendering {
-                    continue;
-                }
                 let column = if flip_x { cells_x - 1 - cell } else { cell };
                 let tile = pattern + column * cells_y + cell_row;
                 let address = ((tile * pattern_bytes + pattern_line * 4) & 0xFFFF) as usize;
+                if self.raster {
+                    self.slots[(tiles - 1 - tiles_left) as usize] = address;
+                }
+                if !rendering {
+                    continue;
+                }
                 let left = x + cell * 8;
                 if left <= -8 || left >= width as i64 {
                     continue;
@@ -667,7 +780,7 @@ impl Renderer {
         let scanned = self.scanned.take();
         let after = (v + 1) & 0x1FF;
         let after_row = if im2 { (after << 1) | odd } else { after };
-        if row >= 480 {
+        if row >= if self.raster { 512 } else { 480 } {
             // The line before the first (V = 511) is not shown, but its sprite scan is
             // the first line's (Kabuto, "Topmost and bottommost raster line").
             if vdp.display_enabled() && after_row < 480 {
@@ -685,12 +798,15 @@ impl Renderer {
             self.dots[row_index] = Vec::new();
         }
         self.width = width;
-        if row_index + 1 > self.rows {
+        if row_index + 1 > self.rows && (row_index < 240 || !self.raster) {
             self.rows = row_index + 1;
         }
         let backdrop = vdp.registers[7] & 0x3F;
         self.widths[row_index] = width;
         self.blanked[row_index] = vdp.registers[0] & 0x01;
+        if self.raster {
+            self.sides[row_index] = Some(([backdrop; LEFT_BORDER], [backdrop; RIGHT_BORDER]));
+        }
         let out = &mut self.pixels[row_index];
         if width < 320 {
             out[width..320].fill(backdrop);
@@ -724,12 +840,137 @@ impl Renderer {
         // How far each plane has been fetched, and each plane's fine scroll.
         self.fetched = [0, 0];
         self.fine = [spans.scroll_a & 15, spans.scroll_b & 15];
+        if self.raster {
+            self.raster_sides(vdp, row_index, width, backdrop, spans);
+        }
         self.row = row_index;
         self.line_width = width;
         self.backdrop = backdrop;
         self.drawn = 0;
         self.line_start = vdp.line_start;
         self.pending = true;
+    }
+
+    /// What a plane's tile generator makes of sprite tile fetch `slot`'s four bytes, in
+    /// the palette `attribute`.
+    fn slot_pixels(&self, vram: &[u8], slot: usize, attribute: u8) -> [u8; 8] {
+        let mut pixels = [0; 8];
+        for i in 0..4 {
+            let byte = vram[(self.slots[slot] + i) & 0xFFFF];
+            pixels[i * 2] = attribute | (byte >> 4);
+            pixels[i * 2 + 1] = attribute | (byte & 15);
+        }
+        pixels
+    }
+
+    /// The side borders. With debug bit 8 set a plane is forced on over the whole raster,
+    /// and the VDP keeps rendering the address bus as plane data: column -1's remaining
+    /// pixels, then in the right border sprite tile fetches 0 and 1 (plane A) or 4 and 5
+    /// (plane B), in the left 36 and 37 (plane B), in the palettes of plane B's last two
+    /// tiles (Kabuto, "Horizontal border for plane A/B"). The sprite fetches come in the
+    /// blank after a line, so a line's right border is finished as the next begins.
+    /// Plane A's left border (idle data and scroll bytes) is not done.
+    fn raster_sides(
+        &mut self,
+        vdp: &VdpState,
+        row: usize,
+        width: usize,
+        backdrop: u8,
+        spans: Spans,
+    ) {
+        let vram = &vdp.vram;
+        if let Some((done, start, plane, attributes)) = self.right.take() {
+            let (first, second) = if plane { (4, 5) } else { (0, 1) };
+            let tiles = [
+                self.slot_pixels(vram, first, attributes[0]),
+                self.slot_pixels(vram, second, attributes[1]),
+            ];
+            let sides = if self.right_done {
+                &mut self.done_sides
+            } else {
+                &mut self.sides
+            };
+            if let Some((_, right)) = &mut sides[done] {
+                for x in start..(start + 16).min(RIGHT_BORDER) {
+                    right[x] = tiles[(x - start) / 8][(x - start) % 8];
+                }
+            }
+        }
+        self.right_done = false;
+        let debug = vdp.debug_register;
+        if debug & 0x100 == 0 || width != 320 {
+            self.last_attributes = [backdrop & 0x30; 2];
+            return;
+        }
+        let plane = debug & 0x80 != 0;
+        let registers = &vdp.registers;
+        let plane_b_base = (i64::from(registers[4]) << 13) & 0xE000;
+        let base = if plane {
+            plane_b_base
+        } else {
+            (i64::from(registers[2]) << 10) & 0xE000
+        };
+        let scroll = if plane { spans.scroll_b } else { spans.scroll_a };
+        let fine = scroll & 15;
+        let mut wide = vec![0u8; width + 32];
+        let latch = i64::from(vdp.vscroll_latch[usize::from(plane)]);
+        let rows = row as i64 + latch;
+        Renderer::plane_columns(
+            vram,
+            &mut wide,
+            base,
+            rows,
+            registers[16],
+            scroll + 16,
+            false,
+            -1,
+            0,
+            width as i64 + 32,
+        );
+        let attributes = self.last_attributes;
+        let tiles = [
+            self.slot_pixels(vram, 36, attributes[0]),
+            self.slot_pixels(vram, 37, attributes[1]),
+        ];
+        let Some((left, right)) = &mut self.sides[row] else {
+            return;
+        };
+        for (i, pixel) in left.iter_mut().enumerate() {
+            let x = i as i64 - LEFT_BORDER as i64;
+            if x >= fine - 16 {
+                *pixel = wide[(x + 16) as usize] & 0x3F;
+            } else if plane && (0..16).contains(&(x - (fine - 32))) {
+                let at = (x - (fine - 32)) as usize;
+                *pixel = tiles[at / 8][at % 8];
+            }
+        }
+        for (i, pixel) in right.iter_mut().enumerate().take(fine as usize) {
+            *pixel = wide[width + i + 16] & 0x3F;
+        }
+        let (last_wide, last_fine) = if plane {
+            (wide, fine as usize)
+        } else {
+            let mut b = vec![0u8; width + 32];
+            Renderer::plane_columns(
+                vram,
+                &mut b,
+                plane_b_base,
+                row as i64 + i64::from(vdp.vscroll_latch[1]),
+                registers[16],
+                spans.scroll_b + 16,
+                false,
+                -1,
+                0,
+                width as i64 + 32,
+            );
+            (b, (spans.scroll_b & 15) as usize)
+        };
+        let last = [
+            last_wide[width + last_fine] & 0x30,
+            last_wide[width + last_fine + 8] & 0x30,
+        ];
+        self.last_attributes = last;
+        self.right = Some((row, fine as usize, plane, last));
     }
 
     /// Run phases 1 and 2 for display row `row`, the next line's, and keep them.
@@ -739,8 +980,8 @@ impl Renderer {
         } else {
             256
         };
-        let latched = self.sprite_scan(vdp, width, row, im2);
-        self.scanned = Some(((row, width, im2), latched));
+        let visible = self.sprite_phase1(width, row, im2);
+        self.chosen = Some(((row, width, im2), visible));
     }
 
     /// Bring the line under way up to `offset` master clocks into it, before something
@@ -749,13 +990,29 @@ impl Renderer {
     /// mixed up to the pixel the H counter names less the output delay. `limit`: a
     /// pixel not to fetch past yet (a 2-cell column still to be latched).
     pub fn catch_up(&mut self, vdp: &VdpState, offset: i64, names: bool, limit: Option<i64>) {
+        self.catch_up_by(vdp, offset, names, limit, output_delay(vdp.hmode.name));
+    }
+
+    /// `catch_up` for a write that turns the display off, which shows later.
+    pub fn catch_up_display_off(&mut self, vdp: &VdpState, offset: i64, names: bool) {
+        self.catch_up_by(vdp, offset, names, None, display_off_delay(vdp.hmode.name));
+    }
+
+    fn catch_up_by(
+        &mut self,
+        vdp: &VdpState,
+        offset: i64,
+        names: bool,
+        limit: Option<i64>,
+        delay: i64,
+    ) {
         if !self.pending || vdp.line_start != self.line_start {
             return;
         }
         let mode = vdp.hmode;
         let t = mode.position(offset) - mode.display_at as i64;
         self.fetch_until(vdp, t, names, limit);
-        self.draw_to(vdp, t - output_delay(mode.name));
+        self.draw_to(vdp, t - delay);
     }
 
     /// Whether the line under way shows the window plane anywhere.
@@ -943,8 +1200,53 @@ impl Renderer {
             std::mem::swap(&mut self.blanked, &mut self.done_blanked);
             std::mem::swap(&mut self.palettes, &mut self.done_palettes);
             std::mem::swap(&mut self.dots, &mut self.done_dots);
+            if self.raster {
+                std::mem::swap(&mut self.sides, &mut self.done_sides);
+                self.sides.fill(None);
+                self.right_done = true;
+            }
         }
         self.rows = 0;
+    }
+
+    /// The finished frame's every line, by V counter, as RGB888 with its side borders
+    /// (`enable_raster`). Lines above line 0 by V counter come before it on the screen,
+    /// so they lead the next frame.
+    pub fn frame_raster(&self) -> Vec<(usize, Vec<u32>)> {
+        let mut rows = Vec::new();
+        for (row, sides) in self.done_sides.iter().enumerate() {
+            let Some((left, right)) = sides else {
+                continue;
+            };
+            let spans = &self.done_palettes[row];
+            let Some((_, palette)) = spans.last() else {
+                continue;
+            };
+            let mut line = Vec::with_capacity(LEFT_BORDER + 320 + RIGHT_BORDER);
+            line.extend(left.iter().map(|&i| palette[0][usize::from(i)]));
+            let width = 320;
+            let start = line.len();
+            line.resize(start + width, 0);
+            if self.done_blanked[row] == 0 {
+                let pixels = &self.done_pixels[row];
+                for (span, (first, spanned)) in spans.iter().enumerate() {
+                    let stop = spans.get(span + 1).map_or(width, |next| next.0);
+                    for x in *first..stop.min(width) {
+                        let value = pixels[x];
+                        line[start + x] =
+                            spanned[usize::from(value >> SHADE_SHIFT)][usize::from(value & 0x3F)];
+                    }
+                }
+                for &(x, colour) in &self.done_dots[row] {
+                    if x < width {
+                        line[start + x] = colour;
+                    }
+                }
+            }
+            line.extend(right.iter().map(|&i| palette[0][usize::from(i)]));
+            rows.push((row, line));
+        }
+        rows
     }
 
     /// The finished frame's size and which set of arrays holds it (`true`: the

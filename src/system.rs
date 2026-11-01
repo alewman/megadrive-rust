@@ -206,11 +206,12 @@ impl Md {
             self.z80.bus.dev.z80_offsets = offsets.clone();
             if let Some(offsets) = &offsets {
                 let last = *offsets.last().expect("an instruction accesses memory");
-                if self.z80_mclk + last >= mclk && self.z80.bus.dev.z80_hold.is_none() {
+                if self.z80_mclk + last >= sampled && self.z80.bus.dev.z80_hold.is_none() {
                     // An access of this instruction would fall past the 68000's clock,
                     // where the arbiter cannot yet see the 68000's bus: it runs at the next
                     // catch-up. Its accesses over the 68000's bus before that are settled
-                    // now.
+                    // now. With the bus going at `sampled` there is no next catch-up for
+                    // an instruction whose accesses all start before then.
                     if Z80_ARBITRATE_PER_ACCESS && self.z80.bus.dev.arbiter_enabled {
                         self.prearbitrate(mclk);
                     }

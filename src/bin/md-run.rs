@@ -8,11 +8,12 @@ use megadrive_rust::cartridge::{load_image, Cartridge};
 use megadrive_rust::io::{Device, BUTTONS};
 use megadrive_rust::machine::MACHINE_NAMES;
 use megadrive_rust::png::write_png;
+use megadrive_rust::render::LEVELS;
 use megadrive_rust::wav::write_wav;
 use megadrive_rust::{machine, System};
 
-const USAGE: &str = "md-run CART [--machine NAME] [--frames N] [--png FILE] [--wav FILE] \
-[--rate HZ] [--no-sound] [--press BUTTONS] [--press-at FRAME] [--pad KIND] [--pad2 KIND] \
+const USAGE: &str = "md-run CART [--machine NAME] [--frames N] [--png FILE] [--png-dir DIR] \
+[--raster-dir DIR] [--wav FILE] [--rate HZ] [--no-sound] [--press BUTTONS] [--press-at FRAME] [--pad KIND] [--pad2 KIND] \
 [--save FILE] [--tmss-rom FILE] [--quiet]";
 
 fn main() -> Result<(), String> {
@@ -21,6 +22,8 @@ fn main() -> Result<(), String> {
     let mut machine_name = String::from("genesis");
     let mut frames = 60u64;
     let (mut png, mut wav, mut save, mut tmss) = (None, None, None, None);
+    let mut png_dir: Option<PathBuf> = None;
+    let mut raster_dir: Option<PathBuf> = None;
     let mut rate = 44_100u32;
     let mut no_sound = false;
     let mut press = String::new();
@@ -33,6 +36,8 @@ fn main() -> Result<(), String> {
             "--machine" => machine_name = value()?,
             "--frames" => frames = value()?.parse().map_err(|_| "bad --frames")?,
             "--png" => png = Some(PathBuf::from(value()?)),
+            "--png-dir" => png_dir = Some(PathBuf::from(value()?)),
+            "--raster-dir" => raster_dir = Some(PathBuf::from(value()?)),
             "--wav" => wav = Some(PathBuf::from(value()?)),
             "--rate" => rate = value()?.parse().map_err(|_| "bad --rate")?,
             "--no-sound" => no_sound = true,
@@ -81,6 +86,15 @@ fn main() -> Result<(), String> {
             .ok_or_else(|| format!("unknown button {name:?}"))?;
         pressed |= bit;
     }
+    if let Some(dir) = &png_dir {
+        std::fs::create_dir_all(dir).map_err(|e| e.to_string())?;
+    }
+    if let Some(dir) = &raster_dir {
+        std::fs::create_dir_all(dir).map_err(|e| e.to_string())?;
+        system.board().vdp.enable_raster();
+    }
+    // The lines above line 0, which lead the next frame on the screen.
+    let mut above: Vec<(usize, Vec<u32>)> = Vec::new();
     let started = Instant::now();
     let mut audio = Vec::new();
     for frame in 0..frames {
@@ -92,6 +106,34 @@ fn main() -> Result<(), String> {
         if let Err(lockup) = system.run_frame() {
             eprintln!("frame {frame}: {lockup}");
             break;
+        }
+        if let Some(dir) = &png_dir {
+            // Every frame as `fNNNNN.png`, the VDP's count since power-on: the numbering
+            // of megadrive-python's `scripts/board_frames.py`.
+            let vdp = &system.board().vdp;
+            let rows = vdp.renderer.frame_rgb(&vdp.s);
+            if !rows.is_empty() {
+                write_png(&dir.join(format!("f{:05}.png", vdp.s.frame)), &rows)
+                    .map_err(|e| e.to_string())?;
+            }
+        }
+        if let Some(dir) = &raster_dir {
+            // Every frame as `rNNNNN.png`, 347 wide: lines 470-511, then 0-257. Lines no
+            // border was opened over show the backdrop, as the border does.
+            let vdp = &system.board().vdp;
+            let lines = vdp.renderer.frame_raster();
+            let backdrop = u32::from(vdp.s.registers[7] & 0x3F);
+            let colour = vdp.s.cram[backdrop as usize];
+            let level = |shift: u32| LEVELS[0][usize::from((colour >> shift) & 7)];
+            let fill = level(1) << 16 | level(5) << 8 | level(9);
+            let mut rows = vec![vec![fill; 347]; 300];
+            let at = |row: usize| if row >= 470 { row - 470 } else { row + 42 };
+            for (row, line) in above.iter().chain(lines.iter().filter(|l| l.0 < 258)) {
+                rows[at(*row)] = line.clone();
+            }
+            above = lines.into_iter().filter(|l| l.0 >= 470).collect();
+            write_png(&dir.join(format!("r{:05}.png", vdp.s.frame)), &rows)
+                .map_err(|e| e.to_string())?;
         }
         if wav.is_some() {
             audio.extend(system.take_audio());

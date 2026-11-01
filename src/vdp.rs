@@ -907,6 +907,8 @@ pub struct VdpState {
     pub vint_at: i64,
     pub odd_at: i64,
     pub render_at: i64,
+    /// Every line the display is on is drawn (`Vdp::enable_raster`).
+    pub raster: bool,
 }
 
 impl VdpState {
@@ -1215,6 +1217,7 @@ impl Vdp {
                 vint_at: 0,
                 odd_at: 0,
                 render_at: 0,
+                raster: false,
             },
             renderer: Renderer::new(),
         };
@@ -1224,6 +1227,12 @@ impl Vdp {
 
     // -- registers ------------------------------------------------------------------------
 
+    /// Keep the whole raster, borders included (`Renderer::frame_raster`).
+    pub fn enable_raster(&mut self) {
+        self.s.raster = true;
+        self.renderer.enable_raster();
+    }
+
     fn write_register(&mut self, number: usize, value: u8) {
         // A register write reaches the VDP at once, not through the FIFO, so it too
         // lands part way along the line being drawn.
@@ -1231,8 +1240,12 @@ impl Vdp {
             // Tiles already fetched keep the old state; the output, behind the H
             // counter, takes the new one from where it has got to.
             let offset = self.s.mclk - self.s.line_start;
-            self.renderer
-                .catch_up(&self.s, offset, PLANE_REGISTERS.contains(&number), None);
+            let names = PLANE_REGISTERS.contains(&number);
+            if number == 1 && self.s.registers[1] & !value & 0x40 != 0 {
+                self.renderer.catch_up_display_off(&self.s, offset, names);
+            } else {
+                self.renderer.catch_up(&self.s, offset, names, None);
+            }
         }
         let s = &mut self.s;
         let old = s.registers[number];
@@ -1292,7 +1305,7 @@ impl Vdp {
         };
         // The picture of a line is drawn where its active display begins (the HBlank
         // flag clearing), so an H interrupt handler's register writes are in place.
-        s.render_at = if s.rendering && !s.border && s.v < 0x0F0 {
+        s.render_at = if s.rendering && !s.border && (s.v < 0x0F0 || s.raster) {
             start + mode.at(mode.hblank_clear)
         } else {
             -1
@@ -1467,6 +1480,8 @@ impl Vdp {
             s.border_started = true;
         }
         s.v = new_v;
+        self.renderer.latch_scan_cache(&self.s);
+        let s = &mut self.s;
         if new_v == 0 {
             s.frame += 1;
             self.renderer.start_frame(&self.s);
@@ -2230,7 +2245,10 @@ impl Vdp {
     }
 
     pub fn z80_write(&mut self, host: &mut impl VdpHost, offset: u32, value: u8, mclk: i64) {
-        let at = mclk.max(self.s.mclk);
+        // The PSG is the Z80's own clock: the VDP's, ahead of it, would run the sound
+        // chips past FM writes the Z80 has yet to make.
+        let psg = matches!((offset >> 2) & 7, 4 | 5);
+        let at = if psg { mclk } else { mclk.max(self.s.mclk) };
         self.write_byte(host, offset, value, at);
     }
 
