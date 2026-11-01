@@ -84,8 +84,8 @@ pub struct Machine {
     pub expansion: bool,
     pub hv_unit: &'static str,
     /// Where Kabuto's hardware-measured DMA figures and Nuked-MD's disagree -- a
-    /// transfer's start-up (5.6 against 8.0 68000 cycles) and the fast pace (2.4
-    /// against 2.47 cycles a word) -- whose the board uses: "kabuto", the tier rule's
+    /// transfer's start-up, 5.6 against 8.0 68000 cycles; every machine reads at the
+    /// die's pace -- whose the board uses: "kabuto", the tier rule's
     /// choice, or "die", for comparisons against Nuked-MD (Aubrey's option 3;
     /// docs/worklog.md, "Kabuto's figures or the die's").
     pub dma_figures: &'static str,

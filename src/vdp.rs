@@ -731,7 +731,8 @@ pub const READ_CRAM: u8 = 0x08;
 pub const READ_VRAM8: u8 = 0x0C;
 
 /// MCLK a DMA transfer takes to read one word from the 68000's bus (Exodus
-/// `dmaTransferReadTimeInMclkCycles`).
+/// `dmaTransferReadTimeInMclkCycles`): a transfer's first read; the rest fall on the
+/// line's DMA ticks (`next_read`).
 pub const DMA_READ_MCLK: i64 = 16;
 
 /// The data port's read-ahead, as the die model times it: a read that waits for the
@@ -1648,14 +1649,12 @@ impl Vdp {
         None
     }
 
-    /// The transfer's read pace: every [`DMA_READ_MCLK`], or with the die's figures at
-    /// the line's next DMA tick.
+    /// The transfer's read pace: at the line's next DMA tick, on every machine. Overdrive
+    /// 2's plasma needs where the reads land along the line, not only their average.
     fn next_read(&mut self) {
         let s = &mut self.s;
         s.transfer_next_read += s.read_inc;
-        if s.dma_die {
-            s.read_inc = s.dma_tick_after(s.transfer_next_read) - s.transfer_next_read;
-        }
+        s.read_inc = s.dma_tick_after(s.transfer_next_read) - s.transfer_next_read;
     }
 
     /// One access slot (Exodus `UpdateInternalState`, General.cpp 1773-1878). Anything
@@ -1815,9 +1814,7 @@ impl Vdp {
             }
             if s.code & 0x20 != 0 && dmd < 2 && s.transfer_cached {
                 s.transfer_next_read = s.mclk;
-                if s.dma_die {
-                    s.read_inc = s.dma_tick_after(s.mclk) - s.mclk;
-                }
+                s.read_inc = s.dma_tick_after(s.mclk) - s.mclk;
             } else if DMA_READS_INTO_ROOM
                 && s.dma_die
                 && s.code & 0x20 != 0
