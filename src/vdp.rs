@@ -1306,7 +1306,8 @@ impl Vdp {
         };
         // The picture of a line is drawn where its active display begins (the HBlank
         // flag clearing), so an H interrupt handler's register writes are in place.
-        s.render_at = if s.rendering && !s.border && (s.v < 0x0F0 || s.raster) {
+        // Line $1FF draws nothing but scans the first line's sprites (`begin_line`).
+        s.render_at = if s.rendering && (!s.border && (s.v < 0x0F0 || s.raster) || s.v == 0x1FF) {
             start + mode.at(mode.hblank_clear)
         } else {
             -1

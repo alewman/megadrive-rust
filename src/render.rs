@@ -780,7 +780,7 @@ impl Renderer {
         let scanned = self.scanned.take();
         let after = (v + 1) & 0x1FF;
         let after_row = if im2 { (after << 1) | odd } else { after };
-        if row >= if self.raster { 512 } else { 480 } {
+        if row >= if self.raster { 512 } else { 480 } || vdp.border {
             // The line before the first (V = 511) is not shown, but its sprite scan is
             // the first line's (Kabuto, "Topmost and bottommost raster line").
             if vdp.display_enabled() && after_row < 480 {
