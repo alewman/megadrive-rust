@@ -403,7 +403,7 @@ B bank=0 zres=0 breq=0 busack=43900883 cart=43906688 pulse=43905838 ztaken=43870
 F 50 51 44802657 44802599 539357 235925 1034
 C pc=00034E sr=2000 ir=5281 irc=3281 d=FFFF,33,A04,A7,80,93,2B4,10031 a=C00004,C00000,1900,A00100,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=0 halt=0 clk=6400386
 Z pc=0060 sp=1F00 af=0044 bc=0000 de=4000 hl=00FA ix=0000 iy=0000 wz=0001 i=00 r=29 iff=11 im=1 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=05644D10 zram=FCC8A120 vram=B57BBDB8 cram=00C7B791 vsram=868D9C5B bat=00000000
+M ram=05644D10 zram=FB4EE1AE vram=B57BBDB8 cram=00C7B791 vsram=868D9C5B bat=00000000
 V regs=1474302C0778000000000F00813F000001000000004000C00000000000000000 code=15 addr=2 oaddr=2 pend=0 mod=0 fifo=5:2:30:00:44801110,5:2:31:00:44801474,5:2:32:00:44801915,5:2:33:00:44802349 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=44674207 early=0,0 dma=000:6B90:399364:16 ints=0000 odd=0 hint=14 hv=0 irq=44673396,44676816 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=44802568 mclk=44802608 slots=a:0 done=00 at=44805988,44802792,-1,-1,44803436 vsl=10,33 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
 P 320x224 pix=864AD9C0 rgb=E7D11A33
 S fm=889:81F567FA psg=3733:49E1A277 mix=736:259D2CFF fmclk=44802629,1066729 psgclk=44802645,2986843
@@ -450,7 +450,7 @@ S fm=889:5D7BDEA7 psg=3733:318C3D52 mix=736:28A35677 fmclk=49282811,1173400 psgc
 B bank=0 zres=0 breq=0 busack=49268455 cart=49283584 pulse=49282734 ztaken=49278208 ram=49155229 pend=0 resume=0 end=49282839 tmss=53454741,1 banks=64563,164033,611941 zhold=- zpart=-
 F 56 57 50178930 50178809 604597 264574 1158
 C pc=000356 sr=2004 ir=67F0 irc=33FC d=FFFF,5,A04,FF9D,80,A5,308,10037 a=C00004,C00000,1900,A00100,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=0 halt=0 clk=7168425
-Z pc=0063 sp=1F00 af=0044 bc=0000 de=4000 hl=00FA ix=0000 iy=0000 wz=4002 i=00 r=24 iff=11 im=1 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
+Z pc=0063 sp=1F00 af=8044 bc=0000 de=4000 hl=00FA ix=0000 iy=0000 wz=4002 i=00 r=24 iff=11 im=1 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
 M ram=00544593 zram=5CBD36BB vram=F32AA1B5 cram=D1319DB7 vsram=D5BCE602 bat=00000000
 V regs=1474302C0778000000000F00813F000001000000004000C00000000000000000 code=15 addr=2 oaddr=2 pend=0 mod=0 fifo=5:2:2:00:50177544,5:2:3:00:50177992,5:2:4:00:50178426,5:2:5:01:50178804 fr=3 fw=0 rb=0 ra=0 rh=0 ready=56 fill=50050347 early=0,0 dma=000:6B90:399364:16 ints=0000 odd=0 hint=14 hv=0 irq=50049636,50053056 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=50178808 mclk=50178860 slots=a:0 done=00 at=50182228,50179032,-1,-1,50179676 vsl=10,4 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
 P 320x224 pix=21F7EAF7 rgb=E40635C8
@@ -907,7 +907,7 @@ B bank=0 zres=0 breq=0 busack=100350311 cart=100357376 pulse=100356526 ztaken=10
 F 113 114 101253198 101253164 1224515 536606 2363
 C pc=000352 sr=2000 ir=0801 irc=0006 d=FFFF,36,A04,FFA0,80,4E,626,10070 a=C00004,C00000,1900,A00100,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=0 halt=0 clk=14464749
 Z pc=0063 sp=1F00 af=0044 bc=0000 de=4000 hl=00FA ix=0000 iy=0000 wz=4002 i=00 r=6D iff=11 im=1 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=A38CFDDF zram=AAC67FFF vram=9201DD01 cram=B1B5E0D7 vsram=BA38FDC0 bat=00000000
+M ram=A38CFDDF zram=AD403F71 vram=9201DD01 cram=B1B5E0D7 vsram=BA38FDC0 bat=00000000
 V regs=1474302C0778000000000F00813F000001000000004000C00000000000000000 code=15 addr=2 oaddr=2 pend=0 mod=0 fifo=5:2:35:00:101252778,5:2:36:01:101253142,5:2:33:00:101251952,5:2:34:00:101252358 fr=1 fw=2 rb=0 ra=0 rh=0 ready=56 fill=101124692 early=0,0 dma=000:6B90:399364:16 ints=0000 odd=0 hint=14 hv=0 irq=101123916,101127336 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=101253088 mclk=101253142 slots=a:0 done=00 at=101256508,101253312,-1,-1,101253956 vsl=10,35 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
 P 320x224 pix=E93B77B8 rgb=B00E7D38
 S fm=889:062A491C psg=3734:490C0D64 mix=736:57C38C45 fmclk=101253191,2410790 psgclk=101253195,6750213

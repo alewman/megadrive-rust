@@ -81,6 +81,14 @@ pub const Z80_CATCH_UP_EACH_CYCLE: bool = true;
 /// The cartridge refresh stretches a Z80 access over the 68000's bus only if it goes
 /// to the cartridge. Die-derived.
 pub const Z80_REFRESH_CARTRIDGE_ONLY: bool = true;
+/// A discrete YM2612's ports 1-3 answer with the status last read at port 0, until that
+/// copy fades to 0 (hardware run 1 of alewman-probe on a Model 1601 with TMSS, tests YMPT
+/// and YMP2: a cleared flag still reads 1 there straight after, 0 twenty frames on, and 0
+/// after a quiet second while port 0 reads 1). The cart's YMDK test (runs 4 and 6, the same
+/// both times) finds the copy still there 3-4 NTSC frames on and gone 5-6 frames on; this is
+/// the middle, 4.5 frames of 896,040 MCLK. It varies: frame-synced runs 7 and 8 lost it
+/// after 6-7 and 4-5 frames; runs 9-11 kept it 6, 4, 2, the last two warm: 2-7 frames, shorter warm. Hardware-captured.
+pub const FM_PORT_FADE_MCLK: i64 = 4_000_000;
 /// A 68000 write to the FM is taken this long after its /AS, and a 68000 read gets the
 /// status as it stands this long after (Nuked-MD, `scripts/run_fm_busy.py`). The
 /// nuked-md machine only.
@@ -214,6 +222,9 @@ pub struct Devices {
     /// The PSG lives inside the VDP and is written at $C00011 or $7F11.
     pub psg: SN76489,
     pub psg_mclk: i64,
+    /// The status port 0 last gave, and when (`FM_PORT_FADE_MCLK`).
+    pub fm_status_kept: u8,
+    pub fm_status_at: i64,
     /// 68000 address bits 23-15 of the Z80's bank window; power-on 0.
     pub bank: u32,
     /// "On power-up, the Z80 will be reset and will have the bus" (CMD 2.2).
@@ -305,6 +316,8 @@ impl Board {
                 fm_read_lag,
                 psg: SN76489::new(YM7101_PSG),
                 psg_mclk: 0,
+                fm_status_kept: 0,
+                fm_status_at: -FM_PORT_FADE_MCLK,
                 bank: 0,
                 z80_reset: true,
                 z80_bus_requested: false,
@@ -598,14 +611,20 @@ impl Devices {
     }
 
     /// The YM2612's status byte at $A04000-$A04003 (or $4000-$4003): the discrete chip
-    /// answers on port 0 only and its other three read 0 (Genesis Plus GX, labelled
-    /// emulator-derived); the ASIC answers on all four (Eke, forum t=386 start=810).
+    /// answers on port 0 only and its other three give what port 0 last gave, until it
+    /// fades (`FM_PORT_FADE_MCLK`, hardware-captured); the ASIC answers on all four (Eke,
+    /// forum t=386 start=810).
     pub fn fm_read(&mut self, port: u8, mclk: i64) -> u8 {
         self.sound_sync(mclk);
         if port != 0 && !self.machine.fm.busy_on_all_ports {
-            return 0x00;
+            return if mclk - self.fm_status_at < FM_PORT_FADE_MCLK { self.fm_status_kept } else { 0x00 };
         }
-        self.fm.read(port)
+        let value = self.fm.read(port);
+        if port == 0 {
+            self.fm_status_kept = value;
+            self.fm_status_at = mclk;
+        }
+        value
     }
 
     // -- open bus ----------------------------------------------------------------------------

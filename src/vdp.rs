@@ -1733,10 +1733,14 @@ impl Vdp {
         }
     }
 
-    /// This slot fills no data-port read: H40's $142 in an active line.
+    /// This slot fills no CRAM or VSRAM read: H40's $142 in an active line. A VRAM read is
+    /// filled there: the die's VRAM read loops count 900 reads in 100 lines, as a real Model
+    /// 1601 does (alewman-probe, RDLN and RDV1), and 851 with the slot shut.
     fn no_read_fill(&self) -> bool {
         let s = &self.s;
-        s.slots == Slots::Active && s.hmode.no_read_fill.contains(&(s.mclk - s.line_start))
+        s.slots == Slots::Active
+            && s.code & 0x0F != 0
+            && s.hmode.no_read_fill.contains(&(s.mclk - s.line_start))
     }
 
     fn vram_write_byte(&mut self, address: u32, value: u8) {
