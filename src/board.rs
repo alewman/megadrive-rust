@@ -235,6 +235,8 @@ pub struct Devices {
     /// The 68000's IRC and `step_clocks` as of its last bus access (or step), which the
     /// reference reads from the CPU.
     pub m68k_irc: u16,
+    /// Where the 68000's latest bus access began (`system::IPL_SYNC_MCLK`).
+    pub m68k_last_access: i64,
     pub m68k_step_clocks: u32,
     /// The master clock at which the current CPU step started, set by the system.
     pub step_start: i64,
@@ -323,6 +325,7 @@ impl Board {
                 z80_bus_requested: false,
                 tmss_register: 0,
                 m68k_irc: 0,
+                m68k_last_access: 0,
                 m68k_step_clocks: 0,
                 step_start: 0,
                 z80_offsets: None,

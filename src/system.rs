@@ -40,6 +40,14 @@ use ym2612_rust::chip::{IC_SLOT_LAG, IC_WRITE_SLOT_LAG};
 /// The longest Z80 step in T-states (an interrupt entry in IM 2 is 19, the longest
 /// instruction 23).
 pub const MAX_Z80_T: i64 = 23;
+/// The 68000 takes an interrupt at the end of an instruction only if the IPL lines changed
+/// this long before that instruction's last bus cycle began, its input synchronizer's lead;
+/// later, it finishes the next instruction first. Die-derived: Nuked-MD 594ca2a with the
+/// harness logging /IPL, alewman-probe's VPOS loop (`cmp.w (a1),d0; beq`): taken when IPL
+/// fell 25-49 MCLK before the final prefetch began, not at 15 or less (docs/worklog.md,
+/// "The 68000's interrupt latency"). It moves the VINT handler from 734 to 781 MCLK after
+/// line $E0 begins, against a real Model 1601's 796.
+pub const IPL_SYNC_MCLK: i64 = 21;
 
 /// 68000 clocks the reset button holds the 68000 in reset: "68k RESET pulse is asserted
 /// for 128 VCLK" (Eke, forum t=1262).
@@ -129,6 +137,7 @@ impl Md {
         let dev = &mut self.z80.bus.dev;
         dev.m68k_irc = cycle.irc;
         dev.m68k_step_clocks = cycle.step_clocks;
+        dev.m68k_last_access = dev.m68k_access_clock();
     }
 
     // -- the CPUs' interrupt lines ---------------------------------------------------------
@@ -1024,7 +1033,7 @@ impl System {
         dev.z80_space_stall = 0;
         dev.m68k_accesses.clear();
         vdp.sync(dev, start);
-        let ipl = vdp.s.ipl();
+        let ipl = synced_ipl(&vdp.s, dev.m68k_last_access - IPL_SYNC_MCLK);
         self.m68k.set_ipl(ipl);
         let clocks = i64::from(self.m68k.step());
         self.mirror();
@@ -1094,5 +1103,25 @@ impl System {
             self.step()?;
         }
         Ok(())
+    }
+}
+
+/// The interrupt level the 68000 acts on at this instruction boundary: what the VDP asks
+/// for, less a request raised after `deadline` (`IPL_SYNC_MCLK`), which waits an
+/// instruction. A VINT too late leaves an older HINT in place.
+fn synced_ipl(s: &crate::vdp::VdpState, deadline: i64) -> u8 {
+    let ipl = s.ipl();
+    let raised = match ipl {
+        6 => s.vint_raised,
+        4 => s.hint_raised,
+        _ => return ipl,
+    };
+    if raised <= deadline {
+        return ipl;
+    }
+    if ipl == 6 && s.hint_pending && s.registers[0] & 0x10 != 0 && s.hint_raised <= deadline {
+        4
+    } else {
+        0
     }
 }

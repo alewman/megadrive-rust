@@ -16,307 +16,307 @@ V regs=0424302C0778000000000000813F000201060000000000000000000000000000 code=11 
 P 320x224 pix=5BC43865 rgb=F52A1E4E
 S fm=886:E540E2C2 psg=3722:6CFA72E6 mix=734:A427DCCC fmclk=896830,21353 psgclk=896820,59788
 B bank=0 zres=1 breq=0 busack=0 cart=896896 pulse=893358 ztaken=-1 ram=819 pend=0 resume=0 end=896830 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 2 3 1792683 1792662 25349 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,2 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=256104
+F 2 3 1792683 1792662 25383 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=256104
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=C262C64B cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:FC00:3:00:1664268,1:FC02:2:00:1664324 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=1664149 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=1663476,1666896 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=1792648 mclk=1792655 slots=a:0 done=00 at=1796068,1792872,-1,-1,1793516 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=1663476,1666896 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=1792648 mclk=1792655 slots=a:0 done=00 at=1796068,1792872,-1,-1,1793516 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
 P 320x224 pix=920E91D5 rgb=CB9E9D70
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=1792648,42682 psgclk=1792680,119512
-B bank=0 zres=1 breq=0 busack=0 cart=1664768 pulse=1663918 ztaken=-1 ram=1665227 pend=0 resume=0 end=1792683 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 3 4 2688739 2688718 57318 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,3 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=384112
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=1792683 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 3 4 2688739 2688718 57385 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=384112
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=D6ABD504 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:3:00:2560289,1:FC02:3:00:2560345,1:FC00:3:00:1664268,1:FC02:2:00:1664324 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=2560170 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=2559516,2562936 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=2688688 mclk=2688711 slots=a:0 done=00 at=2692108,2688912,-1,-1,2689556 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=A48D12B5 rgb=02BB803B
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=2559516,2562936 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=2688688 mclk=2688711 slots=a:0 done=00 at=2692108,2688912,-1,-1,2689556 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=2688718,64017 psgclk=2688735,179249
-B bank=0 zres=1 breq=0 busack=0 cart=2560768 pulse=2559918 ztaken=-1 ram=2560751 pend=0 resume=0 end=2688739 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 4 5 3584774 3584753 89285 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,4 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=512117
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=2688739 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 4 5 3584767 3584746 89386 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=512116
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=FE85B1E4 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:3:00:2560289,1:FC02:3:00:2560345,1:FC00:5:00:3456338,1:FC02:4:00:3456394 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=3456219 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=3455556,3458976 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=3584728 mclk=3584746 slots=a:0 done=00 at=3588148,3584952,-1,-1,3585596 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=0D4ACAA2 rgb=3B53B487
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=3455556,3458976 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=3584728 mclk=3584739 slots=a:0 done=00 at=3588148,3584952,-1,-1,3585596 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=3584746,85351 psgclk=3584760,238984
-B bank=0 zres=1 breq=0 busack=0 cart=3457664 pulse=3456814 ztaken=-1 ram=3457304 pend=0 resume=0 end=3584774 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 5 6 4480823 4480802 121254 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,5 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=640124
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=3584767 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 5 6 4480823 4480802 121388 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=640124
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=EA4CA2AB cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:5:00:4352359,1:FC02:5:00:4352415,1:FC00:5:00:3456338,1:FC02:4:00:3456394 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=4352240 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=4351596,4355016 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=4480768 mclk=4480795 slots=a:0 done=00 at=4484188,4480992,-1,-1,4481636 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=0C872160 rgb=3FA27019
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=4351596,4355016 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=4480768 mclk=4480795 slots=a:0 done=00 at=4484188,4480992,-1,-1,4481636 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=4480816,106686 psgclk=4480815,298721
-B bank=0 zres=1 breq=0 busack=0 cart=4353664 pulse=4352814 ztaken=-1 ram=4352821 pend=0 resume=0 end=4480823 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 6 7 5376851 5376830 153222 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,6 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=768128
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=4480823 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 6 7 5376851 5376830 153389 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=768128
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=EAD89C81 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:5:00:4352359,1:FC02:5:00:4352415,1:FC00:7:00:5248394,1:FC02:6:00:5248450 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=5248275 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=5247636,5251056 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=5376808 mclk=5376823 slots=a:0 done=00 at=5380228,5377032,-1,-1,5377676 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=45671817 rgb=F9C5641D
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=5247636,5251056 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=5376808 mclk=5376823 slots=a:0 done=00 at=5380228,5377032,-1,-1,5377676 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=5376844,128020 psgclk=5376840,358456
-B bank=0 zres=1 breq=0 busack=0 cart=5249664 pulse=5248814 ztaken=-1 ram=5249353 pend=0 resume=0 end=5376851 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 7 8 6272879 6272858 185191 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,7 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=896132
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=5376851 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 7 8 6272879 6272858 185390 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=896132
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=FE118FCE cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:7:00:6144415,1:FC02:7:00:6144471,1:FC00:7:00:5248394,1:FC02:6:00:5248450 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=6144296 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=6143676,6147096 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=6272848 mclk=6272851 slots=a:0 done=00 at=6276268,6273072,-1,-1,6273716 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=9CCFAFDA rgb=1EB30E16
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=6143676,6147096 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=6272848 mclk=6272851 slots=a:0 done=00 at=6276268,6273072,-1,-1,6273716 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=6272872,149354 psgclk=6272865,418191
-B bank=0 zres=1 breq=0 busack=0 cart=6145664 pulse=6144814 ztaken=-1 ram=6144877 pend=0 resume=0 end=6272879 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 8 9 7168942 7168921 217161 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,8 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1024141
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=6272879 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 8 9 7168935 7168914 217392 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1024140
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=874B5EBA cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:7:00:6144415,1:FC02:7:00:6144471,1:FC00:9:00:7040464,1:FC02:8:00:7040520 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=7040345 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=7039716,7043136 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=7168888 mclk=7168914 slots=a:0 done=00 at=7172308,7169112,-1,-1,7169756 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=CEE5D157 rgb=5216FA80
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=7168942,170689 psgclk=7168935,477929
-B bank=0 zres=1 breq=0 busack=0 cart=7041664 pulse=6144814 ztaken=-1 ram=7041430 pend=0 resume=0 end=7168942 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 9 10 8064963 8064942 249128 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,9 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1152144
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=7039716,7043136 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=7168888 mclk=7168907 slots=a:0 done=00 at=7172308,7169112,-1,-1,7169756 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=7168900,170688 psgclk=7168935,477929
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=7168935 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 9 10 8064963 8064942 249393 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1152144
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=93824DF5 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:9:00:7936555,1:FC02:9:00:7936611,1:FC00:9:00:7040464,1:FC02:8:00:7040520 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=7936436 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=7935756,7939176 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=8064928 mclk=8064935 slots=a:0 done=00 at=8068348,8065152,-1,-1,8065796 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=A2536B64 rgb=E2A7621D
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=7935756,7939176 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=8064928 mclk=8064935 slots=a:0 done=00 at=8068348,8065152,-1,-1,8065796 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=888:4FA8CA5A psg=3734:8CB2BCF4 mix=735:BB46E8F8 fmclk=8064928,192022 psgclk=8064960,537664
-B bank=0 zres=1 breq=0 busack=0 cart=7937664 pulse=7936814 ztaken=-1 ram=7937017 pend=0 resume=0 end=8064963 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 10 11 8961019 8960998 281097 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,A a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1280152
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=8064963 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 10 11 8961019 8960998 281395 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1280152
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=931673DF cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:9:00:7936555,1:FC02:9:00:7936611,1:FC00:B:00:8832534,1:FC02:A:00:8832590 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=8832415 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=8831796,8835216 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=8960968 mclk=8960991 slots=a:0 done=00 at=8964388,8961192,-1,-1,8961836 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=58FE0514 rgb=977203A5
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=8831796,8835216 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=8960968 mclk=8960991 slots=a:0 done=00 at=8964388,8961192,-1,-1,8961836 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=8960998,213357 psgclk=8961015,597401
-B bank=0 zres=1 breq=0 busack=0 cart=8833664 pulse=8832814 ztaken=-1 ram=8833493 pend=0 resume=0 end=8961019 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 11 12 9857047 9857026 313065 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,B a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1408156
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=8961019 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 11 12 9857047 9857026 313396 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1408156
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=87DF6090 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:B:00:9728625,1:FC02:B:00:9728681,1:FC00:B:00:8832534,1:FC02:A:00:8832590 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=9728506 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=9727836,9731256 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=9857008 mclk=9857019 slots=a:0 done=00 at=9860428,9857232,-1,-1,9857876 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=69203915 rgb=27A132B3
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=9727836,9731256 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=9857008 mclk=9857019 slots=a:0 done=00 at=9860428,9857232,-1,-1,9857876 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=9857026,234691 psgclk=9857040,657136
-B bank=0 zres=1 breq=0 busack=0 cart=9729664 pulse=8832814 ztaken=-1 ram=9729087 pend=0 resume=0 end=9857047 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 12 13 10753103 10753082 345035 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,C a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1536164
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=9857047 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 12 13 10753103 10753082 345398 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1536164
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=AFF10470 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:B:00:9728625,1:FC02:B:00:9728681,1:FC00:D:00:10624604,1:FC02:C:00:10624660 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=10624485 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=10623876,10627296 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=10753048 mclk=10753075 slots=a:0 done=00 at=10756468,10753272,-1,-1,10753916 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=3F4D4FBB rgb=C7CBA36C
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=10623876,10627296 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=10753048 mclk=10753075 slots=a:0 done=00 at=10756468,10753272,-1,-1,10753916 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=10753096,256026 psgclk=10753095,716873
-B bank=0 zres=1 breq=0 busack=0 cart=10625664 pulse=8832814 ztaken=-1 ram=10625563 pend=0 resume=0 end=10753103 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 13 14 11649131 11649110 377003 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,D a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1664168
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=10753103 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 13 14 11649131 11649110 377399 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1664168
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=BB38173F cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:D:00:11520695,1:FC02:D:00:11520751,1:FC00:D:00:10624604,1:FC02:C:00:10624660 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=11520576 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=11519916,11523336 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=11649088 mclk=11649103 slots=a:0 done=00 at=11652508,11649312,-1,-1,11649956 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=F9295C48 rgb=4B234EC6
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=11519916,11523336 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=11649088 mclk=11649103 slots=a:0 done=00 at=11652508,11649312,-1,-1,11649956 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=11649124,277360 psgclk=11649120,776608
-B bank=0 zres=1 breq=0 busack=0 cart=11521664 pulse=11520814 ztaken=-1 ram=11521157 pend=0 resume=0 end=11649131 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 14 15 12545159 12545138 408972 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,E a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1792172
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=11649131 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 14 15 12545159 12545138 409400 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1792172
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=BBAC2915 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:D:00:11520695,1:FC02:D:00:11520751,1:FC00:F:00:12416674,1:FC02:E:00:12416730 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=12416555 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=12415956,12419376 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=12545128 mclk=12545131 slots=a:0 done=00 at=12548548,12545352,-1,-1,12545996 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=51B13438 rgb=D044F785
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=12415956,12419376 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=12545128 mclk=12545131 slots=a:0 done=00 at=12548548,12545352,-1,-1,12545996 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=12545152,298694 psgclk=12545145,836343
-B bank=0 zres=1 breq=0 busack=0 cart=12417664 pulse=12416814 ztaken=-1 ram=12417647 pend=0 resume=0 end=12545159 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 15 16 13441201 13441180 440941 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,F a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1920178
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=12545159 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 15 16 13441215 13441194 441402 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=1920180
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=AF653A5A cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:F:00:13312765,1:FC02:F:00:13312835,1:FC00:F:00:12416674,1:FC02:E:00:12416730 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=13312646 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=13311996,13315416 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=13441168 mclk=13441173 slots=a:0 done=00 at=13444588,13441392,-1,-1,13442036 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=D8446234 rgb=C52A39FB
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=13441180,320028 psgclk=13441200,896080
-B bank=0 zres=1 breq=0 busack=0 cart=13313664 pulse=13312814 ztaken=-1 ram=13313227 pend=0 resume=0 end=13441201 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 16 17 14337257 14337236 472911 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,10 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2048186
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=13311996,13315416 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=13441168 mclk=13441187 slots=a:0 done=00 at=13444588,13441392,-1,-1,13442036 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=13441180,320028 psgclk=13441215,896081
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=13441215 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 16 17 14337243 14337222 473403 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2048184
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=74D68006 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:F:00:13312765,1:FC02:F:00:13312835,1:FC00:11:00:14208744,1:FC02:10:00:14208814 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=14208625 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=14208036,14211456 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=14337208 mclk=14337229 slots=a:0 done=00 at=14340628,14337432,-1,-1,14338076 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=CA03EB12 rgb=C948D2CB
-S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=14337250,341363 psgclk=14337255,955817
-B bank=0 zres=1 breq=0 busack=0 cart=14209664 pulse=14208814 ztaken=-1 ram=14209717 pend=0 resume=0 end=14337257 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 17 18 15233299 15233278 504880 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,11 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2176192
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=14208036,14211456 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=14337208 mclk=14337215 slots=a:0 done=00 at=14340628,14337432,-1,-1,14338076 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=14337208,341362 psgclk=14337240,955816
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=14337243 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 17 18 15233299 15233278 505405 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2176192
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=601F9349 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:11:00:15104849,1:FC02:11:00:15104905,1:FC00:11:00:14208744,1:FC02:10:00:14208814 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=15104716 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=15104076,15107496 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=15233248 mclk=15233271 slots=a:0 done=00 at=15236668,15233472,-1,-1,15234116 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=4222D5BF rgb=2ADA081A
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=15104076,15107496 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=15233248 mclk=15233271 slots=a:0 done=00 at=15236668,15233472,-1,-1,15234116 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=15233278,362697 psgclk=15233295,1015553
-B bank=0 zres=1 breq=0 busack=0 cart=15105664 pulse=15104814 ztaken=-1 ram=15105297 pend=0 resume=0 end=15233299 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 18 19 16129334 16129313 536848 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,12 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2304197
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=15233299 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 18 19 16129327 16129306 537406 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2304196
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=608BAD63 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:11:00:15104849,1:FC02:11:00:15104905,1:FC00:13:00:16000898,1:FC02:12:00:16000954 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=16000765 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=16000116,16003536 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=16129288 mclk=16129306 slots=a:0 done=00 at=16132708,16129512,-1,-1,16130156 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=C0789A13 rgb=D4AFA7DF
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=16000116,16003536 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=16129288 mclk=16129299 slots=a:0 done=00 at=16132708,16129512,-1,-1,16130156 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=16129306,384031 psgclk=16129320,1075288
-B bank=0 zres=1 breq=0 busack=0 cart=16001664 pulse=16000814 ztaken=-1 ram=16001850 pend=0 resume=0 end=16129334 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 19 20 17025369 17025348 568817 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,13 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2432202
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=16129327 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 19 20 17025383 17025362 569408 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2432204
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=7442BE2C cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:13:00:16896919,1:FC02:13:00:16896975,1:FC00:13:00:16000898,1:FC02:12:00:16000954 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=16896786 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=16896156,16899576 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=17025328 mclk=17025341 slots=a:0 done=00 at=17028748,17025552,-1,-1,17026196 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=B37A147E rgb=A1B29ABC
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=17025334,405365 psgclk=17025360,1135024
-B bank=0 zres=1 breq=0 busack=0 cart=16897664 pulse=16896814 ztaken=-1 ram=16897367 pend=0 resume=0 end=17025369 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 20 21 17921404 17921383 600785 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,14 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2560207
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=16896156,16899576 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=17025328 mclk=17025355 slots=a:0 done=00 at=17028748,17025552,-1,-1,17026196 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=17025376,405366 psgclk=17025375,1135025
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=17025383 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 20 21 17921411 17921390 601409 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2560208
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=5C6CDACC cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:13:00:16896919,1:FC02:13:00:16896975,1:FC00:15:00:17792954,1:FC02:14:00:17793010 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=17792835 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=17792196,17795616 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=17921368 mclk=17921376 slots=a:0 done=00 at=17924788,17921592,-1,-1,17922236 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=7498A5FB rgb=DD0B6D0C
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=17792196,17795616 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=17921368 mclk=17921383 slots=a:0 done=00 at=17924788,17921592,-1,-1,17922236 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=17921404,426700 psgclk=17921400,1194760
-B bank=0 zres=1 breq=0 busack=0 cart=17793664 pulse=16896814 ztaken=-1 ram=17793920 pend=0 resume=0 end=17921404 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 21 22 18817439 18817418 632754 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,15 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2688212
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=17921411 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 21 22 18817439 18817418 633410 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2688212
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=48A5C983 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:15:00:18688989,1:FC02:15:00:18689045,1:FC00:15:00:17792954,1:FC02:14:00:17793010 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=18688870 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=18688236,18691656 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=18817408 mclk=18817411 slots=a:0 done=00 at=18820828,18817632,-1,-1,18818276 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=A9EDC47B rgb=6D5D5E74
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=18688236,18691656 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=18817408 mclk=18817411 slots=a:0 done=00 at=18820828,18817632,-1,-1,18818276 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=18817432,448034 psgclk=18817425,1254495
-B bank=0 zres=1 breq=0 busack=0 cart=18689664 pulse=18688814 ztaken=-1 ram=18689437 pend=0 resume=0 end=18817439 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 22 23 19713502 19713481 664724 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,16 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2816221
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=18817439 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 22 23 19713495 19713474 665412 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2816220
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=4831F7A9 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:15:00:18688989,1:FC02:15:00:18689045,1:FC00:17:00:19585038,1:FC02:16:00:19585094 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=19584919 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=19584276,19587696 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=19713448 mclk=19713474 slots=a:0 done=00 at=19716868,19713672,-1,-1,19714316 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=F6C40F29 rgb=F37661B1
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=19713502,469369 psgclk=19713495,1314233
-B bank=0 zres=1 breq=0 busack=0 cart=19585664 pulse=19584814 ztaken=-1 ram=19585990 pend=0 resume=0 end=19713502 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 23 24 20609537 20609516 696692 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,17 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2944226
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=19584276,19587696 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=19713448 mclk=19713467 slots=a:0 done=00 at=19716868,19713672,-1,-1,19714316 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=19713460,469368 psgclk=19713495,1314233
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=19713495 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 23 24 20609523 20609502 697413 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=2944224
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=5CF8E4E6 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:17:00:20481115,1:FC02:17:00:20481171,1:FC00:17:00:19585038,1:FC02:16:00:19585094 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=20480996 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=20480316,20483736 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=20609488 mclk=20609509 slots=a:0 done=00 at=20612908,20609712,-1,-1,20610356 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=0CC20284 rgb=02F34B56
-S fm=888:4FA8CA5A psg=3734:8CB2BCF4 mix=735:BB46E8F8 fmclk=20609530,490703 psgclk=20609535,1373969
-B bank=0 zres=1 breq=0 busack=0 cart=20481664 pulse=19584814 ztaken=-1 ram=20481577 pend=0 resume=0 end=20609537 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 24 25 21505565 21505544 728661 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,18 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3072230
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=20480316,20483736 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=20609488 mclk=20609495 slots=a:0 done=00 at=20612908,20609712,-1,-1,20610356 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=888:4FA8CA5A psg=3734:8CB2BCF4 mix=735:BB46E8F8 fmclk=20609488,490702 psgclk=20609520,1373968
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=20609523 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 24 25 21505579 21505558 729415 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3072232
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=25A23592 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:17:00:20481115,1:FC02:17:00:20481171,1:FC00:19:00:21377094,1:FC02:18:00:21377150 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=21376975 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=21376356,21379776 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=21505528 mclk=21505537 slots=a:0 done=00 at=21508948,21505752,-1,-1,21506396 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=1C3DF206 rgb=70EB97B4
-S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=21505558,512037 psgclk=21505560,1433704
-B bank=0 zres=1 breq=0 busack=0 cart=21377664 pulse=19584814 ztaken=-1 ram=21378053 pend=0 resume=0 end=21505565 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 25 26 22401607 22401586 760628 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,19 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3200236
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=21376356,21379776 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=21505528 mclk=21505551 slots=a:0 done=00 at=21508948,21505752,-1,-1,21506396 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=21505558,512037 psgclk=21505575,1433705
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=21505579 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 25 26 22401607 22401586 761416 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3200236
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=316B26DD cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:19:00:22273213,1:FC02:19:00:22273269,1:FC00:19:00:21377094,1:FC02:18:00:21377150 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=22273094 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=22272396,22275816 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=22401568 mclk=22401579 slots=a:0 done=00 at=22404988,22401792,-1,-1,22402436 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=B2EAF774 rgb=954C6691
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=22272396,22275816 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=22401568 mclk=22401579 slots=a:0 done=00 at=22404988,22401792,-1,-1,22402436 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=22401586,533371 psgclk=22401600,1493440
-B bank=0 zres=1 breq=0 busack=0 cart=22273664 pulse=22272814 ztaken=-1 ram=22273675 pend=0 resume=0 end=22401607 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 26 27 23297649 23297628 792597 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1A a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3328242
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=22401607 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 26 27 23297663 23297642 793418 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3328244
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=31FF18F7 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:19:00:22273213,1:FC02:19:00:22273269,1:FC00:1B:00:23169178,1:FC02:1A:00:23169234 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=23169059 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=23168436,23171856 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=23297608 mclk=23297621 slots=a:0 done=00 at=23301028,23297832,-1,-1,23298476 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=1BC721E2 rgb=28926CE6
-S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=23297614,554705 psgclk=23297640,1553176
-B bank=0 zres=1 breq=0 busack=0 cart=23169664 pulse=23168814 ztaken=-1 ram=23170137 pend=0 resume=0 end=23297649 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 27 28 24193677 24193656 824564 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1B a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3456246
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=23168436,23171856 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=23297608 mclk=23297635 slots=a:0 done=00 at=23301028,23297832,-1,-1,23298476 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=23297656,554706 psgclk=23297655,1553177
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=23297663 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 27 28 24193691 24193670 825419 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3456248
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=25360BB8 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1B:00:24065269,1:FC02:1B:00:24065325,1:FC00:1B:00:23169178,1:FC02:1A:00:23169234 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=24065150 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=24064476,24067896 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=24193648 mclk=24193649 slots=a:0 done=00 at=24197068,24193872,-1,-1,24194516 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=B17C39BB rgb=44936A3C
-S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=24193642,576039 psgclk=24193665,1612911
-B bank=0 zres=1 breq=0 busack=0 cart=24066560 pulse=24065710 ztaken=-1 ram=24065731 pend=0 resume=0 end=24193677 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 28 29 25089733 25089712 856532 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1C a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3584254
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=24064476,24067896 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=24193648 mclk=24193663 slots=a:0 done=00 at=24197068,24193872,-1,-1,24194516 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=24193684,576040 psgclk=24193680,1612912
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=24193691 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 28 29 25089719 25089698 857420 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3584252
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=0D186F58 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1B:00:24065269,1:FC02:1B:00:24065325,1:FC00:1D:00:24961304,1:FC02:1C:00:24961360 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=24961185 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=24960516,24963936 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=25089688 mclk=25089705 slots=a:0 done=00 at=25093108,25089912,-1,-1,25090556 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=8612FF83 rgb=8B26A438
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=25089712,597374 psgclk=25089720,1672648
-B bank=0 zres=1 breq=0 busack=0 cart=24962560 pulse=24961710 ztaken=-1 ram=24962263 pend=0 resume=0 end=25089733 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 29 30 25985761 25985740 888500 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1D a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3712258
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=24960516,24963936 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=25089688 mclk=25089691 slots=a:0 done=00 at=25093108,25089912,-1,-1,25090556 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=25089712,597374 psgclk=25089705,1672647
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=25089719 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 29 30 25985775 25985754 889422 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3712260
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=19D17C17 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1D:00:25857325,1:FC02:1D:00:25857381,1:FC00:1D:00:24961304,1:FC02:1C:00:24961360 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=25857206 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=25856556,25859976 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=25985728 mclk=25985733 slots=a:0 done=00 at=25989148,25985952,-1,-1,25986596 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=65965374 rgb=C4A916A3
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=25985740,618708 psgclk=25985760,1732384
-B bank=0 zres=1 breq=0 busack=0 cart=25858560 pulse=25857710 ztaken=-1 ram=25857787 pend=0 resume=0 end=25985761 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 30 31 26881817 26881796 920470 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1E a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3840266
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=25856556,25859976 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=25985728 mclk=25985747 slots=a:0 done=00 at=25989148,25985952,-1,-1,25986596 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=25985740,618708 psgclk=25985775,1732385
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=25985775 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 30 31 26881803 26881782 921423 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3840264
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=1945423D cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1D:00:25857325,1:FC02:1D:00:25857381,1:FC00:1F:00:26753304,1:FC02:1E:00:26753360 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=26753185 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=26752596,26756016 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=26881768 mclk=26881789 slots=a:0 done=00 at=26885188,26881992,-1,-1,26882636 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=1B0B3046 rgb=6C5D7FF8
-S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=26881810,640043 psgclk=26881815,1792121
-B bank=0 zres=1 breq=0 busack=0 cart=26754560 pulse=26753710 ztaken=-1 ram=26754263 pend=0 resume=0 end=26881817 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 31 32 27777845 27777824 952439 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1F a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3968270
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=26752596,26756016 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=26881768 mclk=26881775 slots=a:0 done=00 at=26885188,26881992,-1,-1,26882636 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=26881768,640042 psgclk=26881800,1792120
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=26881803 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 31 32 27777859 27777838 953425 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=3968272
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=0D8C5172 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1F:00:27649395,1:FC02:1F:00:27649451,1:FC00:1F:00:26753304,1:FC02:1E:00:26753360 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=27649276 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=27648636,27652056 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=27777808 mclk=27777817 slots=a:0 done=00 at=27781228,27778032,-1,-1,27778676 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=1EDA4452 rgb=A99600BA
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=27777838,661377 psgclk=27777840,1851856
-B bank=0 zres=1 breq=0 busack=0 cart=27650560 pulse=26753710 ztaken=-1 ram=27649857 pend=0 resume=0 end=27777845 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 32 33 28673894 28673873 984407 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,20 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4096277
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=27648636,27652056 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=27777808 mclk=27777831 slots=a:0 done=00 at=27781228,27778032,-1,-1,27778676 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=27777838,661377 psgclk=27777855,1851857
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=27777859 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 32 33 28673887 28673866 985426 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4096276
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=489C3B3F cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1F:00:27649395,1:FC02:1F:00:27649451,1:FC00:21:00:28545444,1:FC02:20:00:28545500 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=28545325 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=28544676,28548096 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=28673848 mclk=28673866 slots=a:0 done=00 at=28677268,28674072,-1,-1,28674716 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=C526847B rgb=0A9D8B44
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=28544676,28548096 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=28673848 mclk=28673859 slots=a:0 done=00 at=28677268,28674072,-1,-1,28674716 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=28673866,682711 psgclk=28673880,1911592
-B bank=0 zres=1 breq=0 busack=0 cart=28546560 pulse=26753710 ztaken=-1 ram=28546410 pend=0 resume=0 end=28673894 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 33 34 29569929 29569908 1016376 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,21 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4224282
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=28673887 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 33 34 29569943 29569922 1017428 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4224284
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=5C552870 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:21:00:29441465,1:FC02:21:00:29441521,1:FC00:21:00:28545444,1:FC02:20:00:28545500 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=29441346 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=29440716,29444136 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=29569888 mclk=29569901 slots=a:0 done=00 at=29573308,29570112,-1,-1,29570756 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=BD987FED rgb=763F99AC
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=29569894,704045 psgclk=29569920,1971328
-B bank=0 zres=1 breq=0 busack=0 cart=29442560 pulse=29441710 ztaken=-1 ram=29441927 pend=0 resume=0 end=29569929 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 34 35 30465964 30465943 1048344 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,22 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4352287
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=29440716,29444136 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=29569888 mclk=29569915 slots=a:0 done=00 at=29573308,29570112,-1,-1,29570756 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=29569936,704046 psgclk=29569935,1971329
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=29569943 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 34 35 30465971 30465950 1049429 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4352288
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=5CC1165A cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:21:00:29441465,1:FC02:21:00:29441521,1:FC00:23:00:30337514,1:FC02:22:00:30337570 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=30337395 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=30336756,30340176 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=30465928 mclk=30465936 slots=a:0 done=00 at=30469348,30466152,-1,-1,30466796 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=4F85E96D rgb=9F298B61
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=30336756,30340176 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=30465928 mclk=30465943 slots=a:0 done=00 at=30469348,30466152,-1,-1,30466796 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=30465964,725380 psgclk=30465960,2031064
-B bank=0 zres=1 breq=0 busack=0 cart=30338560 pulse=29441710 ztaken=-1 ram=30338480 pend=0 resume=0 end=30465964 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 35 36 31362013 31361992 1080314 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,23 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4480294
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=30465971 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 35 36 31361999 31361978 1081430 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4480292
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=48080515 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:23:00:31233535,1:FC02:23:00:31233591,1:FC00:23:00:30337514,1:FC02:22:00:30337570 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=31233416 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=31232796,31236216 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=31361968 mclk=31361985 slots=a:0 done=00 at=31365388,31362192,-1,-1,31362836 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=1DFD24F1 rgb=442D5A2C
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=31361992,746714 psgclk=31362000,2090800
-B bank=0 zres=1 breq=0 busack=0 cart=31234560 pulse=29441710 ztaken=-1 ram=31233997 pend=0 resume=0 end=31362013 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 36 37 32258062 32258041 1112283 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,24 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4608301
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=31232796,31236216 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=31361968 mclk=31361971 slots=a:0 done=00 at=31365388,31362192,-1,-1,31362836 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=31361992,746714 psgclk=31361985,2090799
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=31361999 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 36 37 32258055 32258034 1113432 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4608300
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=602661F5 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:23:00:31233535,1:FC02:23:00:31233591,1:FC00:25:00:32129584,1:FC02:24:00:32129640 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=32129465 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=32128836,32132256 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=32258008 mclk=32258034 slots=a:0 done=00 at=32261428,32258232,-1,-1,32258876 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=EB5673D9 rgb=1B93F6AE
-S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=32258062,768049 psgclk=32258055,2150537
-B bank=0 zres=1 breq=0 busack=0 cart=32130560 pulse=32129710 ztaken=-1 ram=32130550 pend=0 resume=0 end=32258062 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 37 38 33154097 33154076 1144251 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,25 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4736306
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=32128836,32132256 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=32258008 mclk=32258027 slots=a:0 done=00 at=32261428,32258232,-1,-1,32258876 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=32258020,768048 psgclk=32258055,2150537
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=32258055 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 37 38 33154083 33154062 1145433 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4736304
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=74EF72BA cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:25:00:33025675,1:FC02:25:00:33025731,1:FC00:25:00:32129584,1:FC02:24:00:32129640 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=33025556 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=33024876,33028296 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=33154048 mclk=33154069 slots=a:0 done=00 at=33157468,33154272,-1,-1,33154916 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=D1769FDF rgb=05458D30
-S fm=888:4FA8CA5A psg=3734:8CB2BCF4 mix=735:BB46E8F8 fmclk=33154090,789383 psgclk=33154095,2210273
-B bank=0 zres=1 breq=0 busack=0 cart=33026560 pulse=32129710 ztaken=-1 ram=33026137 pend=0 resume=0 end=33154097 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 38 39 34050139 34050118 1176220 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,26 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4864312
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=33024876,33028296 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=33154048 mclk=33154055 slots=a:0 done=00 at=33157468,33154272,-1,-1,33154916 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=888:4FA8CA5A psg=3734:8CB2BCF4 mix=735:BB46E8F8 fmclk=33154048,789382 psgclk=33154080,2210272
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=33154083 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 38 39 34050139 34050118 1177435 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4864312
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=747B4C90 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:25:00:33025675,1:FC02:25:00:33025731,1:FC00:27:00:33921654,1:FC02:26:00:33921724 fr=0 fw=0 rb=0 ra=0 rh=0 ready=56 fill=33921535 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=33920916,33924336 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=34050088 mclk=34050111 slots=a:0 done=00 at=34053508,34050312,-1,-1,34050956 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=9602FDDB rgb=C33295AE
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=33920916,33924336 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=34050088 mclk=34050111 slots=a:0 done=00 at=34053508,34050312,-1,-1,34050956 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
 S fm=889:E645ACB9 psg=3733:4242EFEE mix=736:C7F5E892 fmclk=34050118,810717 psgclk=34050135,2270009
-B bank=0 zres=1 breq=0 busack=0 cart=33922560 pulse=33921710 ztaken=-1 ram=33922627 pend=0 resume=0 end=34050139 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
-F 39 40 34946181 34946160 1208188 0 0
-C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,27 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4992318
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=34050139 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+F 39 40 34946167 34946146 1209436 0 0
+C pc=0002A0 sr=2000 ir=4E72 irc=2000 d=FFFF,8000,0,0,0,0,0,1 a=C00004,C00000,0,0,0,0,0 usp=0 ssp=FFFE00 ipl=0 nmi=0 tr=0 stop=1 halt=0 clk=4992316
 Z pc=0000 sp=0000 af=0000 bc=0000 de=0000 hl=0000 ix=0000 iy=0000 wz=0000 i=00 r=00 iff=00 im=0 alt=0000,0000,0000,0000 q=00 halt=0 ei=0 rst=0 int=- nmi=0
-M ram=20903833 zram=D8F49994 vram=60B25FDF cram=6EB498C2 vsram=C2A8FA9D bat=00000000
-V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:27:00:34817759,1:FC02:27:00:34817815,1:FC00:27:00:33921654,1:FC02:26:00:33921724 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=34817626 early=0,0 dma=000:0:0:16 ints=0100 odd=0 hint=0 hv=0 irq=34816956,34820376 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=34946128 mclk=34946153 slots=a:0 done=00 at=34949548,34946352,-1,-1,34946996 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
-P 320x224 pix=5DB3116C rgb=1836CB16
-S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=34946146,832051 psgclk=34946175,2329745
-B bank=0 zres=1 breq=0 busack=0 cart=34818560 pulse=34817710 ztaken=-1 ram=34818207 pend=0 resume=0 end=34946181 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-
+M ram=F60750B7 zram=D8F49994 vram=C2F6F861 cram=6EB498C2 vsram=C2A8FA9D bat=00000000
+V regs=0464302C0778000000000000813F000201060000000000000000000000000000 code=11 addr=FC00 oaddr=FC00 pend=0 mod=0 fifo=1:FC00:1:00:1607638,1:FC02:1:00:1607694,1:EFFC:8001:00:1606266,1:EFFE:8000:00:1606532 fr=2 fw=2 rb=0 ra=0 rh=0 ready=56 fill=1607519 early=0,0 dma=000:0:0:16 ints=1101 odd=0 hint=0 hv=0 irq=34816956,34820376 dbg=0 hold=0 h=40 vm=EA il=00 v=0 pv=1FF border=00 ls=34946128 mclk=34946139 slots=a:0 done=00 at=34949548,34946352,-1,-1,34946996 vsl=0,0 vsb=-,- col=-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-
+P 320x224 pix=73CA68DC rgb=6E01A71C
+S fm=889:E645ACB9 psg=3734:8CB2BCF4 mix=736:C7F5E892 fmclk=34946146,832051 psgclk=34946160,2329744
+B bank=0 zres=1 breq=0 busack=0 cart=1608320 pulse=1607470 ztaken=-1 ram=1608597 pend=0 resume=0 end=34946167 tmss=53454741,1 banks=0,0,0 zhold=- zpart=-

@@ -906,6 +906,9 @@ pub struct VdpState {
     pub line_end: i64,
     pub hblank_at: i64,
     pub vint_at: i64,
+    /// When VINT and HINT were last raised (`system::IPL_SYNC_MCLK`).
+    pub vint_raised: i64,
+    pub hint_raised: i64,
     pub odd_at: i64,
     pub render_at: i64,
     /// Every line the display is on is drawn (`Vdp::enable_raster`).
@@ -1216,6 +1219,8 @@ impl Vdp {
                 line_end: 0,
                 hblank_at: 0,
                 vint_at: 0,
+                vint_raised: i64::MIN / 2,
+                hint_raised: i64::MIN / 2,
                 odd_at: 0,
                 render_at: 0,
                 raster: false,
@@ -1415,6 +1420,7 @@ impl Vdp {
                 2 => {
                     s.vint_done = true;
                     s.vint_pending = true;
+                    s.vint_raised = s.mclk;
                     s.f_flag = true;
                     s.z80_irq_start = s.mclk;
                     s.z80_irq_end = s.mclk + MCLK_PER_LINE;
@@ -1498,6 +1504,7 @@ impl Vdp {
         } else if s.hint_counter == 0 {
             s.hint_counter = i64::from(s.registers[10]);
             s.hint_pending = true;
+            s.hint_raised = s.mclk;
         } else {
             s.hint_counter -= 1;
         }

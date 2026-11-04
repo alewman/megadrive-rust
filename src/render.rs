@@ -207,6 +207,9 @@ pub struct Renderer {
     right: Option<(usize, usize, bool, [u8; 2])>,
     /// Whether that line went over with the finished frame.
     right_done: bool,
+    /// A line of the finished frame completed after it was handed over (`raster_sides`),
+    /// for a caller of `frame_raster` to take.
+    pub late_raster: Option<(usize, Vec<u32>)>,
     last_attributes: [u8; 2],
 }
 
@@ -260,6 +263,7 @@ impl Renderer {
             slots: [0; 40],
             right: None,
             right_done: false,
+            late_raster: None,
             last_attributes: [0; 2],
         }
     }
@@ -895,6 +899,12 @@ impl Renderer {
                     right[x] = tiles[(x - start) / 8][(x - start) % 8];
                 }
             }
+            if self.right_done {
+                // The frame was handed over before this line's right border came in
+                // (line 511's, as line 0 begins): give the finished line to whoever has
+                // already read the frame.
+                self.late_raster = self.raster_row(done).map(|line| (done, line));
+            }
         }
         self.right_done = false;
         let debug = vdp.debug_register;
@@ -1213,15 +1223,17 @@ impl Renderer {
     /// (`enable_raster`). Lines above line 0 by V counter come before it on the screen,
     /// so they lead the next frame.
     pub fn frame_raster(&self) -> Vec<(usize, Vec<u32>)> {
-        let mut rows = Vec::new();
-        for (row, sides) in self.done_sides.iter().enumerate() {
-            let Some((left, right)) = sides else {
-                continue;
-            };
+        (0..self.done_sides.len())
+            .filter_map(|row| self.raster_row(row).map(|line| (row, line)))
+            .collect()
+    }
+
+    /// One line of the finished frame for `frame_raster`.
+    fn raster_row(&self, row: usize) -> Option<Vec<u32>> {
+        {
+            let (left, right) = self.done_sides[row].as_ref()?;
             let spans = &self.done_palettes[row];
-            let Some((_, palette)) = spans.last() else {
-                continue;
-            };
+            let (_, palette) = spans.last()?;
             let mut line = Vec::with_capacity(LEFT_BORDER + 320 + RIGHT_BORDER);
             line.extend(left.iter().map(|&i| palette[0][usize::from(i)]));
             let width = 320;
@@ -1244,9 +1256,8 @@ impl Renderer {
                 }
             }
             line.extend(right.iter().map(|&i| palette[0][usize::from(i)]));
-            rows.push((row, line));
+            Some(line)
         }
-        rows
     }
 
     /// The finished frame's size and which set of arrays holds it (`true`: the

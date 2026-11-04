@@ -119,7 +119,13 @@ fn main() -> Result<(), String> {
         }
         if let Some(dir) = &raster_dir {
             // Every frame as `rNNNNN.png`, 347 wide: lines 470-511, then 0-257. Lines no
-            // border was opened over show the backdrop, as the border does.
+            // border was opened over show the backdrop, as the border does. Line 511's
+            // right border is fetched as line 0 begins, after `above` was taken.
+            if let Some((late, line)) = system.board().vdp.renderer.late_raster.take() {
+                if let Some(slot) = above.iter_mut().find(|l| l.0 == late) {
+                    slot.1 = line;
+                }
+            }
             let vdp = &system.board().vdp;
             let lines = vdp.renderer.frame_raster();
             let backdrop = u32::from(vdp.s.registers[7] & 0x3F);
